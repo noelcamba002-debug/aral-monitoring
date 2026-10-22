@@ -1,6 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARAL System - Teacher App</title>
+<style>
+  :root{ --green:#1b7a3d; --yellow:#b8860b; --red:#b3261e; --blue:#0b5394; --ink:#1f2937; --line:#d1d5db; --bg:#f3f4f6; }
+  body{font-family:'Segoe UI',sans-serif; margin:0; background:var(--bg); color:var(--ink);}
+  header{background:linear-gradient(135deg,#0b5394,#1b7a3d); color:#fff; padding:18px; text-align:center;}
+  .wrap{max-width:800px; margin:0 auto; padding:14px;}
+  .card{background:#fff; border:1px solid var(--line); border-radius:10px; padding:15px; margin-bottom:15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);}
+  .card h2{margin:0 0 10px; font-size:1.1rem; color:var(--blue);}
+  input, textarea{width:100%; padding:8px; margin-bottom:8px; border:1px solid var(--line); border-radius:5px; box-sizing:border-box; font-family:inherit;}
+  button{padding:10px 15px; border:none; border-radius:5px; font-weight:bold; cursor:pointer; width:100%; margin-bottom:5px; transition:0.2s;}
+  .btn-blue{background:var(--blue); color:#fff;} .btn-blue:hover{background:#083c6b;}
+  .week-item{border:1px solid var(--line); border-radius:8px; padding:12px; margin-bottom:12px; background:#fafafa;}
+  .week-title{font-size:0.95rem; font-weight:bold; margin-bottom:4px;}
+  .week-focus{font-size:0.8rem; color:var(--blue); margin-bottom:8px;}
+  .status-btns{display:flex; gap:5px; margin-top:5px;}
+  .status-btns button{flex:1; border:1px solid #ccc; background:#fff; padding:8px;}
+  .status-btns button.active-ok{background:var(--green); color:#fff; border-color:var(--green);}
+  .status-btns button.active-part{background:var(--yellow); color:#fff; border-color:var(--yellow);}
+  .status-btns button.active-no{background:var(--red); color:#fff; border-color:var(--red);}
+  .toast{position:fixed; bottom:20px; right:20px; background:var(--green); color:#fff; padding:10px 20px; border-radius:5px; display:none; box-shadow:0 4px 6px rgba(0,0,0,0.2); z-index:999;}
+</style>
+</head>
+<body>
+<header><h1>ARAL Reading - Teacher App</h1></header>
+<div class="wrap">
+  <div class="card">
+    <h2>👤 Teacher & Learner Info</h2>
+    <input type="text" id="teacherName" placeholder="Teacher's Name" onchange="updateLocalInfo()">
+    <input type="text" id="learnerName" placeholder="Learner's Name" onchange="updateLocalInfo()">
+    <input type="text" id="gradeLevel" placeholder="Grade Level" onchange="updateLocalInfo()">
+  </div>
+  <div id="weeksContainer"></div>
+</div>
+<div class="toast" id="toast">☁️ Saved to Cloud!</div>
 <script>
-// Ang Web App URL na kinopya mo sa Apps Script
-const GAS_URL = "https://script.google.com/macros/s/AKfycbxjRijq6288VzPNd-Fb8iGJnPHTAeuGjirB2-pY3fqcWirpN3aduX_iOX25Es0EWfLP6Q/exec";
+// PALITAN ITO NG WEB APP URL NA NAKUHA MO SA APPS SCRIPT
+const GAS_URL = "ILAGAY_DITO_ANG_WEB_APP_URL_MO"; 
 
 const CURRICULUM = [
   {id:"b1", w:"Week 1", t:"Word Concept (Print Carries Meaning)", f:"Filipino · M,S,A,I,O,B,E"},
@@ -55,6 +94,12 @@ function updateLocalInfo(){
   syncToCloud(); 
 }
 
+function showToast(){ 
+  const toast = document.getElementById('toast'); 
+  toast.style.display = 'block'; 
+  setTimeout(() => toast.style.display = 'none', 2000); 
+}
+
 function syncToCloud() {
   if (!state.learner.name || !state.learner.teacher) return;
   
@@ -67,13 +112,16 @@ function syncToCloud() {
   };
 
   fetch(GAS_URL, {
-    method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' },
+    method: 'POST', 
+    mode: 'no-cors', 
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload)
   }).then(() => {
-    // Optional: Magpakita ng toast notification
-    console.log("Synced to Google Sheets");
+    showToast();
   }).catch(err => console.error("Sync error:", err));
 }
 
 window.onload = () => { loadConfig(); renderWeeks(); };
 </script>
+</body>
+</html>
