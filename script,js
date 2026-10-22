@@ -1,0 +1,205 @@
+/* =========================================
+   AUTO WORD HIGHLIGHTING LOGIC
+========================================= */
+let highlightIntervals = {};
+
+function startAutoHighlight(weekId) {
+  const textElement = document.getElementById(`text-${weekId}`);
+  const btn = document.getElementById(`btn-guided-${weekId}`);
+
+  // Kung may tumatakbo na, i-reset
+  if (highlightIntervals[weekId]) {
+    clearInterval(highlightIntervals[weekId]);
+    highlightIntervals[weekId] = null;
+    btn.textContent = "▶️ Start Guided Reading (Auto-Highlight)";
+    btn.classList.remove("active");
+    textElement.innerHTML = textElement.textContent; 
+    return;
+  }
+
+  // Kunin ang text, linisin, at hatiin sa mga salita
+  const originalText = textElement.textContent.trim();
+  const words = originalText.split(/\s+/);
+  
+  // I-wrap ang bawat salita sa <span>
+  textElement.innerHTML = words.map(word => `<span>${word}</span>`).join(' ');
+  const spans = textElement.querySelectorAll('span');
+  let currentIndex = 0;
+
+  btn.textContent = "⏹ Stop Guided Reading";
+  btn.classList.add("active");
+
+  // Simulan ang highlight
+  highlightIntervals[weekId] = setInterval(() => {
+    if (currentIndex > 0) {
+      spans[currentIndex - 1].classList.remove('highlight');
+    }
+
+    if (currentIndex >= spans.length) {
+      clearInterval(highlightIntervals[weekId]);
+      highlightIntervals[weekId] = null;
+      btn.textContent = "▶️ Start Guided Reading (Auto-Highlight)";
+      btn.classList.remove("active");
+      return;
+    }
+
+    spans[currentIndex].classList.add('highlight');
+    spans[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    
+    currentIndex++;
+  }, 600); 
+}
+
+/* =========================================
+   STATE & FLOATING BUTTONS
+========================================= */
+let activeWeek = ""; 
+let quizState = {}; 
+
+function recordTeacherAssess(status) {
+  if (!activeWeek) return alert("Pumili muna ng kwento!");
+
+  if (!quizState[activeWeek]) {
+    quizState[activeWeek] = { mcqScore: 0, mcqChecked: 0, teacherStatus: "" };
+  }
+  
+  quizState[activeWeek].teacherStatus = status;
+  updateOverallStatus(activeWeek);
+}
+
+/* =========================================
+   MCQ AUTO-CHECK LOGIC
+========================================= */
+function checkMCQ(weekId, questionIndex, selectedOption, correctOption, btnElement) {
+  const parentQuestion = btnElement.closest('.mcq-item');
+  const allButtons = parentQuestion.querySelectorAll('.option-btn');
+  const feedbackElement = document.getElementById(`fb-${weekId}-${questionIndex}`);
+
+  allButtons.forEach(btn => btn.disabled = true);
+
+  if (!quizState[weekId]) {
+    quizState[weekId] = { mcqScore: 0, mcqChecked: 0, teacherStatus: "" };
+  }
+
+  if (selectedOption === correctOption) {
+    btnElement.classList.add('correct');
+    feedbackElement.textContent = "✅ Tama! Magaling!";
+    feedbackElement.className = "feedback-text correct";
+    feedbackElement.style.display = "block";
+    quizState[weekId].mcqScore++;
+  } else {
+    btnElement.classList.add('wrong');
+    feedbackElement.textContent = "❌ Mali. Ang tamang sagot ay " + correctOption + ".";
+    feedbackElement.className = "feedback-text wrong";
+    feedbackElement.style.display = "block";
+    allButtons.forEach(btn => {
+      if (btn.textContent.trim().startsWith(correctOption)) {
+        btn.classList.add('correct');
+      }
+    });
+  }
+
+  quizState[weekId].mcqChecked++;
+  updateOverallStatus(weekId);
+}
+
+/* =========================================
+   OVERALL STATUS
+========================================= */
+function updateOverallStatus(weekId) {
+  const state = quizState[weekId];
+  if (!state) return;
+
+  const statusBadge = document.getElementById(`status-${weekId}`);
+  const mcqTotal = 2; 
+
+  if (state.mcqChecked < mcqTotal || !state.teacherStatus) {
+    statusBadge.textContent = "PENDING";
+    statusBadge.className = "status-badge status-pending";
+    return;
+  }
+
+  let finalStatus = "no";
+  if (state.teacherStatus === 'no') {
+    finalStatus = 'no';
+  } else if (state.teacherStatus === 'ok') {
+    if (state.mcqScore === mcqTotal) {
+      finalStatus = 'ok';
+    } else if (state.mcqScore > 0) {
+      finalStatus = 'part';
+    }
+  }
+
+  if (finalStatus === 'ok') {
+    statusBadge.textContent = "OBSERVED ✅";
+    statusBadge.className = "status-badge status-ok";
+  } else if (finalStatus === 'part') {
+    statusBadge.textContent = "PARTIALLY 🟡";
+    statusBadge.className = "status-badge status-part";
+  } else {
+    statusBadge.textContent = "NOT OBSERVED ❌";
+    statusBadge.className = "status-badge status-no";
+  }
+
+  saveToTeacherApp(weekId, finalStatus);
+}
+
+function saveToTeacherApp(weekId, status) {
+  let teacherState = JSON.parse(localStorage.getItem('aral_teacher_app') || '{}');
+  if (!teacherState.status) teacherState.status = {};
+  teacherState.status[weekId] = status;
+  localStorage.setItem('aral_teacher_app', JSON.stringify(teacherState));
+}
+
+/* =========================================
+   TIMER LOGIC
+========================================= */
+let timers = {}; 
+function formatTime(totalSeconds) {
+  const m = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
+  const s = (totalSeconds % 60).toString().padStart(2, '0');
+  return `${m}:${s}`;
+}
+function startTimer(weekId) {
+  if (!timers[weekId]) timers[weekId] = { seconds: 0, interval: null, isRunning: false };
+  if (timers[weekId].isRunning) return;
+  timers[weekId].isRunning = true;
+  timers[weekId].interval = setInterval(() => {
+    timers[weekId].seconds++;
+    document.getElementById(`timer-display-${weekId}`).textContent = formatTime(timers[weekId].seconds);
+  }, 1000);
+}
+function stopTimer(weekId) {
+  if (!timers[weekId] || !timers[weekId].isRunning) return;
+  clearInterval(timers[weekId].interval);
+  timers[weekId].isRunning = false;
+}
+function resetTimer(weekId) {
+  if (!timers[weekId]) return;
+  clearInterval(timers[weekId].interval);
+  timers[weekId].seconds = 0;
+  timers[weekId].isRunning = false;
+  document.getElementById(`timer-display-${weekId}`).textContent = "00:00";
+}
+
+/* =========================================
+   ACCORDION LOGIC
+========================================= */
+var acc = document.getElementsByClassName("accordion");
+for (var i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.maxHeight) {
+      panel.style.maxHeight = null;
+      document.getElementById('floating-assess').style.display = 'none';
+      activeWeek = "";
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+      document.getElementById('floating-assess').style.display = 'flex';
+      
+      const weekTag = this.querySelector('.week-tag').textContent;
+      activeWeek = weekTag.toLowerCase().replace("week ", "b"); 
+    } 
+  });
+}
