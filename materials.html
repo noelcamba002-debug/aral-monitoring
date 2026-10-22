@@ -33,18 +33,9 @@
 
   .reading-text { line-height: 1.8; color: #475569; font-size: 1.1rem; margin: 15px 0; white-space: pre-wrap; }
 
-  .script-box { background: #f8fafc; border-left: 4px solid var(--tutor); padding: 15px; margin: 15px 0; border-radius: 4px; }
-  .script-box h4 { margin: 0 0 10px 0; color: var(--tutor); font-size: 0.95rem; }
-  .dialogue { display: flex; margin-bottom: 10px; font-size: 0.95rem; }
-  .speaker { font-weight: bold; min-width: 70px; }
-  .speaker.tutor { color: var(--tutor); }
-  .speaker.learner { color: var(--learner); }
-  .line { color: #334155; }
-
   .quiz-box { background: #fffbeb; border-left: 4px solid #f59e0b; padding: 15px; margin-top: 15px; border-radius: 4px; }
   .quiz-box h4 { margin: 0 0 10px 0; color: #b45309; font-size: 0.95rem; }
   
-  /* MCQ STYLES */
   .mcq-item { margin-bottom: 20px; background: #fff; padding: 15px; border-radius: 6px; border: 1px solid #e5e7eb; }
   .question-text { font-size: 1rem; font-weight: bold; color: #78350f; margin-bottom: 10px; }
   .options { display: flex; flex-direction: column; gap: 8px; }
@@ -57,7 +48,6 @@
   .feedback-text.correct { color: var(--green); }
   .feedback-text.wrong { color: var(--red); }
 
-  /* FLOATING TEACHER ASSESSMENT BUTTONS */
   .floating-assess { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: white; padding: 15px 25px; border-radius: 50px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); display: flex; align-items: center; gap: 15px; z-index: 1000; border: 2px solid var(--primary); display: none; }
   .floating-assess span { font-weight: bold; font-size: 0.9rem; color: var(--primary); }
   .btn-float { padding: 10px 20px; border: none; border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 1rem; transition: 0.2s; display: flex; align-items: center; gap: 5px; }
@@ -103,10 +93,7 @@
     <div class="panel" id="panel-b1">
       <div class="controls-box">
         <div class="timer-row">
-          <div>
-            <div style="font-size:0.75rem; font-weight:bold; color:#166534;">READING TIMER</div>
-            <div class="timer-display" id="timer-display-b1">00:00</div>
-          </div>
+          <div><div style="font-size:0.75rem; font-weight:bold; color:#166534;">READING TIMER</div><div class="timer-display" id="timer-display-b1">00:00</div></div>
           <div class="btn-group">
             <button class="btn-timer btn-start" onclick="startTimer('b1')">▶ Start</button>
             <button class="btn-timer btn-stop" onclick="stopTimer('b1')">⏸ Stop</button>
@@ -114,12 +101,7 @@
           </div>
         </div>
       </div>
-      <div class="script-box">
-        <h4>🗣️ Tutor's Script</h4>
-        <div class="dialogue"><div class="speaker tutor">Tutor:</div><div class="line">Magandang umaga! Ngayon, babasahin natin ang kwentong "Si Mia at ang Masayang Sabado." Pakinggan mo akong magbasa, tapos ikaw naman ang magbasa.</div></div>
-      </div>
-      <p class="reading-text" id="text-b1">Isang umaga ng Sabado, masayang gumising si Mia. Maglilinis ako ng silid at mag-aalaga ng aking mga alagang hayop! sabi niya. Una niyang pinakain ang aso at ibon. Pagkatapos, kumuha si Mia ng walis at sinimulang walisan ang bakuran. Tumulong ang kaniyang kapatid na Sam na naglinis na rin sa loob ng bahay. Nang matapos ang gawaing bahay, sabay silang naglaro ng sipa sa likod ng bahay. Sa araw na iyon, natutuhan ni Mia na ang sipag at samahan ay mahalaga sa pamilya.</p>
-      
+      <p class="reading-text">Isang umaga ng Sabado, masayang gumising si Mia. Maglilinis ako ng silid at mag-aalaga ng aking mga alagang hayop! sabi niya. Una niyang pinakain ang aso at ibon. Pagkatapos, kumuha si Mia ng walis at sinimulang walisan ang bakuran. Tumulong ang kaniyang kapatid na Sam na naglinis na rin sa loob ng bahay. Nang matapos ang gawaing bahay, sabay silang naglaro ng sipa sa likod ng bahay. Sa araw na iyon, natutuhan ni Mia na ang sipag at samahan ay mahalaga sa pamilya.</p>
       <div class="quiz-box" data-week="b1">
         <h4>Part 1: Multiple Choice</h4>
         <div class="mcq-item" id="q-b1-0">
@@ -128,8 +110,7 @@
             <button class="option-btn" onclick="checkMCQ('b1', 0, 'A', 'B', this)">A. Naglaro agad ng sipa</button>
             <button class="option-btn" onclick="checkMCQ('b1', 0, 'B', 'B', this)">B. Naglinis ng silid at nag-alaga ng hayop</button>
             <button class="option-btn" onclick="checkMCQ('b1', 0, 'C', 'B', this)">C. Natulog buong umaga</button>
-          </div>
-          <div class="feedback-text" id="fb-b1-0"></div>
+          </div><div class="feedback-text" id="fb-b1-0"></div>
         </div>
         <div class="mcq-item" id="q-b1-1">
           <div class="question-text">2. Sino ang tumulong kay Mia sa paglilinis ng bahay?</div>
@@ -137,13 +118,9 @@
             <button class="option-btn" onclick="checkMCQ('b1', 1, 'A', 'C', this)">A. Si Nanay</button>
             <button class="option-btn" onclick="checkMCQ('b1', 1, 'B', 'C', this)">B. Si Tatay</button>
             <button class="option-btn" onclick="checkMCQ('b1', 1, 'C', 'C', this)">C. Si Sam</button>
-          </div>
-          <div class="feedback-text" id="fb-b1-1"></div>
+          </div><div class="feedback-text" id="fb-b1-1"></div>
         </div>
-        <div class="score-display">
-          <span>Overall Status:</span>
-          <span class="status-badge status-pending" id="status-b1">PENDING</span>
-        </div>
+        <div class="score-display"><span>Overall Status:</span><span class="status-badge status-pending" id="status-b1">PENDING</span></div>
       </div>
     </div>
 
@@ -152,10 +129,7 @@
     <div class="panel" id="panel-b2">
       <div class="controls-box">
         <div class="timer-row">
-          <div>
-            <div style="font-size:0.75rem; font-weight:bold; color:#166534;">READING TIMER</div>
-            <div class="timer-display" id="timer-display-b2">00:00</div>
-          </div>
+          <div><div style="font-size:0.75rem; font-weight:bold; color:#166534;">READING TIMER</div><div class="timer-display" id="timer-display-b2">00:00</div></div>
           <div class="btn-group">
             <button class="btn-timer btn-start" onclick="startTimer('b2')">▶ Start</button>
             <button class="btn-timer btn-stop" onclick="stopTimer('b2')">⏸ Stop</button>
@@ -163,12 +137,7 @@
           </div>
         </div>
       </div>
-      <div class="script-box">
-        <h4>🗣️ Tutor's Script</h4>
-        <div class="dialogue"><div class="speaker tutor">Tutor:</div><div class="line">Ngayon naman, pag-usapan natin ang tungkol sa ulan. Ano ang nararamdaman mo tuwing umuulan?</div></div>
-      </div>
-      <p class="reading-text" id="text-b2">May mga munting patak-ulan na nakatira sa ulap. Isang araw, napuno ng mga munting patak-ulan ang ulap at bumaba sila sa lupa. Ang ilan ay napunta sa mga ugat ng mga puno at halaman. Dumungaw sa bintana ang batang si Ursula at nakita niya ang mga tanim niya. Naisip niya na hindi na niya ito kailangan diligan dahil sa pag-ulan. Ngumiti siya at sinabing Maraming salamat sa ulan.</p>
-      
+      <p class="reading-text">May mga munting patak-ulan na nakatira sa ulap. Isang araw, napuno ng mga munting patak-ulan ang ulap at bumaba sila sa lupa. Ang ilan ay napunta sa mga ugat ng mga puno at halaman. Dumungaw sa bintana ang batang si Ursula at nakita niya ang mga tanim niya. Naisip niya na hindi na niya ito kailangan diligan dahil sa pag-ulan. Ngumiti siya at sinabing Maraming salamat sa ulan.</p>
       <div class="quiz-box" data-week="b2">
         <h4>Part 1: Multiple Choice</h4>
         <div class="mcq-item" id="q-b2-0">
@@ -177,8 +146,7 @@
             <button class="option-btn" onclick="checkMCQ('b2', 0, 'A', 'B', this)">A. Sa ilalim ng lupa</button>
             <button class="option-btn" onclick="checkMCQ('b2', 0, 'B', 'B', this)">B. Sa ulap</button>
             <button class="option-btn" onclick="checkMCQ('b2', 0, 'C', 'B', this)">C. Sa dagat</button>
-          </div>
-          <div class="feedback-text" id="fb-b2-0"></div>
+          </div><div class="feedback-text" id="fb-b2-0"></div>
         </div>
         <div class="mcq-item" id="q-b2-1">
           <div class="question-text">2. Bakit nagpasalamat si Ursula sa ulan?</div>
@@ -186,13 +154,81 @@
             <button class="option-btn" onclick="checkMCQ('b2', 1, 'A', 'C', this)">A. Dahil basa siya</button>
             <button class="option-btn" onclick="checkMCQ('b2', 1, 'B', 'C', this)">B. Dahil malamig</button>
             <button class="option-btn" onclick="checkMCQ('b2', 1, 'C', 'C', this)">C. Dahil nadiligan ang kanyang mga tanim</button>
+          </div><div class="feedback-text" id="fb-b2-1"></div>
+        </div>
+        <div class="score-display"><span>Overall Status:</span><span class="status-badge status-pending" id="status-b2">PENDING</span></div>
+      </div>
+    </div>
+
+    <!-- WEEK 3 -->
+    <button class="accordion"><span><span class="week-tag">Week 3</span> Ang Ngipin ni Efren</span></button>
+    <div class="panel" id="panel-b3">
+      <div class="controls-box">
+        <div class="timer-row">
+          <div><div style="font-size:0.75rem; font-weight:bold; color:#166534;">READING TIMER</div><div class="timer-display" id="timer-display-b3">00:00</div></div>
+          <div class="btn-group">
+            <button class="btn-timer btn-start" onclick="startTimer('b3')">▶ Start</button>
+            <button class="btn-timer btn-stop" onclick="stopTimer('b3')">⏸ Stop</button>
+            <button class="btn-timer btn-reset" onclick="resetTimer('b3')">↺ Reset</button>
           </div>
-          <div class="feedback-text" id="fb-b2-1"></div>
         </div>
-        <div class="score-display">
-          <span>Overall Status:</span>
-          <span class="status-badge status-pending" id="status-b2">PENDING</span>
+      </div>
+      <p class="reading-text">Si Efren ay batang mahilig kumain ng kendi at iba pang matatamis na pagkain. Minsan lang siyang magsipilyo ng ngipin. Madalas ay nakakatulog siya na hindi nagsisipilyo. Pinapaalalahanan siya ng kanyang ina na huwag matutulog nang hindi nagsisipilyo, pero hindi niya ito sinusunod. Isang araw ay biglang narinig ng nanay ang sigaw ni Efren. Umiiyak ito. "Nanay, nanay masakit ang ngipin ko. Hindi po ako makanguya at makakain." ang sabi ni Efren. "Ikaw kasi hindi ka nakikinig sa akin," ang sabi ng Nanay. May butas na ang ngipin ni Efren. Dinala ng Nanay si Efren sa dentista.</p>
+      <div class="quiz-box" data-week="b3">
+        <h4>Part 1: Multiple Choice</h4>
+        <div class="mcq-item" id="q-b3-0">
+          <div class="question-text">1. Ano ang hilig kainin ni Efren?</div>
+          <div class="options">
+            <button class="option-btn" onclick="checkMCQ('b3', 0, 'A', 'B', this)">A. Gulay</button>
+            <button class="option-btn" onclick="checkMCQ('b3', 0, 'B', 'B', this)">B. Kendi at matatamis</button>
+            <button class="option-btn" onclick="checkMCQ('b3', 0, 'C', 'B', this)">C. Prutas</button>
+          </div><div class="feedback-text" id="fb-b3-0"></div>
         </div>
+        <div class="mcq-item" id="q-b3-1">
+          <div class="question-text">2. Bakit sumakit ang ngipin ni Efren?</div>
+          <div class="options">
+            <button class="option-btn" onclick="checkMCQ('b3', 1, 'A', 'C', this)">A. Nadapa siya</button>
+            <button class="option-btn" onclick="checkMCQ('b3', 1, 'B', 'C', this)">B. Kumain siya ng mansanas</button>
+            <button class="option-btn" onclick="checkMCQ('b3', 1, 'C', 'C', this)">C. Hindi siya nagsisipilyo</button>
+          </div><div class="feedback-text" id="fb-b3-1"></div>
+        </div>
+        <div class="score-display"><span>Overall Status:</span><span class="status-badge status-pending" id="status-b3">PENDING</span></div>
+      </div>
+    </div>
+
+    <!-- WEEK 4 -->
+    <button class="accordion"><span><span class="week-tag">Week 4</span> Si Dana at Hana</span></button>
+    <div class="panel" id="panel-b4">
+      <div class="controls-box">
+        <div class="timer-row">
+          <div><div style="font-size:0.75rem; font-weight:bold; color:#166534;">READING TIMER</div><div class="timer-display" id="timer-display-b4">00:00</div></div>
+          <div class="btn-group">
+            <button class="btn-timer btn-start" onclick="startTimer('b4')">▶ Start</button>
+            <button class="btn-timer btn-stop" onclick="stopTimer('b4')">⏸ Stop</button>
+            <button class="btn-timer btn-reset" onclick="resetTimer('b4')">↺ Reset</button>
+          </div>
+        </div>
+      </div>
+      <p class="reading-text">Sa Baryo Maligaya, ako ay may kilalang magkaibigang palaging magkasama. Sila ay sina Dana at Hana. Mahal na mahal nila ang isa’t isa. Sa paggawa ng kanilang takdang aralin ay magkasama rin sila. Sa pag-uwi ay sabay din sila. Magkaibigan ang kanilang mga magulang. Kinagigiliwan sila ng kanilang mga kapitbahay dahil pareho silang masipag, magalang at mabait. Lahat ay natutuwa sa kanila.</p>
+      <div class="quiz-box" data-week="b4">
+        <h4>Part 1: Multiple Choice</h4>
+        <div class="mcq-item" id="q-b4-0">
+          <div class="question-text">1. Sino ang magkaibigan sa kwento?</div>
+          <div class="options">
+            <button class="option-btn" onclick="checkMCQ('b4', 0, 'A', 'B', this)">A. Sina Mia at Sam</button>
+            <button class="option-btn" onclick="checkMCQ('b4', 0, 'B', 'B', this)">B. Sina Dana at Hana</button>
+            <button class="option-btn" onclick="checkMCQ('b4', 0, 'C', 'B', this)">C. Sina Efren at Ursula</button>
+          </div><div class="feedback-text" id="fb-b4-0"></div>
+        </div>
+        <div class="mcq-item" id="q-b4-1">
+          <div class="question-text">2. Bakit kinagigiliwan sila ng kanilang kapitbahay?</div>
+          <div class="options">
+            <button class="option-btn" onclick="checkMCQ('b4', 1, 'A', 'C', this)">A. Dahil maingay sila</button>
+            <button class="option-btn" onclick="checkMCQ('b4', 1, 'B', 'C', this)">B. Dahil mayaman sila</button>
+            <button class="option-btn" onclick="checkMCQ('b4', 1, 'C', 'C', this)">C. Dahil masipag, magalang, at mabait sila</button>
+          </div><div class="feedback-text" id="fb-b4-1"></div>
+        </div>
+        <div class="score-display"><span>Overall Status:</span><span class="status-badge status-pending" id="status-b4">PENDING</span></div>
       </div>
     </div>
   </div>
@@ -205,10 +241,7 @@
     <div class="panel" id="panel-p1">
       <div class="controls-box">
         <div class="timer-row">
-          <div>
-            <div style="font-size:0.75rem; font-weight:bold; color:#166534;">READING TIMER</div>
-            <div class="timer-display" id="timer-display-p1">00:00</div>
-          </div>
+          <div><div style="font-size:0.75rem; font-weight:bold; color:#166534;">READING TIMER</div><div class="timer-display" id="timer-display-p1">00:00</div></div>
           <div class="btn-group">
             <button class="btn-timer btn-start" onclick="startTimer('p1')">▶ Start</button>
             <button class="btn-timer btn-stop" onclick="stopTimer('p1')">⏸ Stop</button>
@@ -216,8 +249,7 @@
           </div>
         </div>
       </div>
-      <p class="reading-text" id="text-p1">It was a rainy evening at our home in Manila. The aroma of Filipino cooking filled the kitchen. My brother Ben and I could hardly wait for mealtime. We excitedly sat at the table, which was full of food. We bowed our heads for a quick prayer and thanked God for the food. As we ate, we laughed and talked about our day. Our mealtime wasn't just about the food. It was about being together.</p>
-      
+      <p class="reading-text">It was a rainy evening at our home in Manila. The aroma of Filipino cooking filled the kitchen. My brother Ben and I could hardly wait for mealtime. We excitedly sat at the table, which was full of food. We bowed our heads for a quick prayer and thanked God for the food. As we ate, we laughed and talked about our day. Our mealtime wasn't just about the food. It was about being together.</p>
       <div class="quiz-box" data-week="p1">
         <h4>Comprehension Questions</h4>
         <div class="mcq-item" id="q-p1-0">
@@ -226,8 +258,7 @@
             <button class="option-btn" onclick="checkMCQ('p1', 0, 'A', 'B', this)">A. Morning</button>
             <button class="option-btn" onclick="checkMCQ('p1', 0, 'B', 'B', this)">B. Evening</button>
             <button class="option-btn" onclick="checkMCQ('p1', 0, 'C', 'B', this)">C. Noon</button>
-          </div>
-          <div class="feedback-text" id="fb-p1-0"></div>
+          </div><div class="feedback-text" id="fb-p1-0"></div>
         </div>
         <div class="mcq-item" id="q-p1-1">
           <div class="question-text">2. What made mealtime special?</div>
@@ -235,13 +266,9 @@
             <button class="option-btn" onclick="checkMCQ('p1', 1, 'A', 'C', this)">A. The food only</button>
             <button class="option-btn" onclick="checkMCQ('p1', 1, 'B', 'C', this)">B. The rainy weather</button>
             <button class="option-btn" onclick="checkMCQ('p1', 1, 'C', 'C', this)">C. Being together as a family</button>
-          </div>
-          <div class="feedback-text" id="fb-p1-1"></div>
+          </div><div class="feedback-text" id="fb-p1-1"></div>
         </div>
-        <div class="score-display">
-          <span>Overall Status:</span>
-          <span class="status-badge status-pending" id="status-p1">PENDING</span>
-        </div>
+        <div class="score-display"><span>Overall Status:</span><span class="status-badge status-pending" id="status-p1">PENDING</span></div>
       </div>
     </div>
     
@@ -250,10 +277,7 @@
     <div class="panel" id="panel-p2">
       <div class="controls-box">
         <div class="timer-row">
-          <div>
-            <div style="font-size:0.75rem; font-weight:bold; color:#166534;">READING TIMER</div>
-            <div class="timer-display" id="timer-display-p2">00:00</div>
-          </div>
+          <div><div style="font-size:0.75rem; font-weight:bold; color:#166534;">READING TIMER</div><div class="timer-display" id="timer-display-p2">00:00</div></div>
           <div class="btn-group">
             <button class="btn-timer btn-start" onclick="startTimer('p2')">▶ Start</button>
             <button class="btn-timer btn-stop" onclick="stopTimer('p2')">⏸ Stop</button>
@@ -261,8 +285,7 @@
           </div>
         </div>
       </div>
-      <p class="reading-text" id="text-p2">We are tiny little baby peas. Round and small, cute and sweet! We swing in our pod, snug and tight. The pod pops open! We fall to the ground. When it rains, we start to sprout. We grow tall and strong when the sun is out. Tiny little baby peas, we grew into plants that swing with the breeze.</p>
-      
+      <p class="reading-text">We are tiny little baby peas. Round and small, cute and sweet! We swing in our pod, snug and tight. The pod pops open! We fall to the ground. When it rains, we start to sprout. We grow tall and strong when the sun is out. Tiny little baby peas, we grew into plants that swing with the breeze.</p>
       <div class="quiz-box" data-week="p2">
         <h4>Comprehension Questions</h4>
         <div class="mcq-item" id="q-p2-0">
@@ -271,8 +294,7 @@
             <button class="option-btn" onclick="checkMCQ('p2', 0, 'A', 'B', this)">A. When it snows</button>
             <button class="option-btn" onclick="checkMCQ('p2', 0, 'B', 'B', this)">B. When it rains</button>
             <button class="option-btn" onclick="checkMCQ('p2', 0, 'C', 'B', this)">C. When it is windy</button>
-          </div>
-          <div class="feedback-text" id="fb-p2-0"></div>
+          </div><div class="feedback-text" id="fb-p2-0"></div>
         </div>
         <div class="mcq-item" id="q-p2-1">
           <div class="question-text">2. What helps the peas grow tall and strong?</div>
@@ -280,17 +302,381 @@
             <button class="option-btn" onclick="checkMCQ('p2', 1, 'A', 'C', this)">A. The moon</button>
             <button class="option-btn" onclick="checkMCQ('p2', 1, 'B', 'C', this)">B. The rain</button>
             <button class="option-btn" onclick="checkMCQ('p2', 1, 'C', 'C', this)">C. The sun</button>
+          </div><div class="feedback-text" id="fb-p2-1"></div>
+        </div>
+        <div class="score-display"><span>Overall Status:</span><span class="status-badge status-pending" id="status-p2">PENDING</span></div>
+      </div>
+    </div>
+
+    <!-- WEEK 3 -->
+    <button class="accordion"><span><span class="week-tag">Week 3</span> Life in the Ivatan Islands</span></button>
+    <div class="panel" id="panel-p3">
+      <div class="controls-box">
+        <div class="timer-row">
+          <div><div style="font-size:0.75rem; font-weight:bold; color:#166534;">READING TIMER</div><div class="timer-display" id="timer-display-p3">00:00</div></div>
+          <div class="btn-group">
+            <button class="btn-timer btn-start" onclick="startTimer('p3')">▶ Start</button>
+            <button class="btn-timer btn-stop" onclick="stopTimer('p3')">⏸ Stop</button>
+            <button class="btn-timer btn-reset" onclick="resetTimer('p3')">↺ Reset</button>
           </div>
-          <div class="feedback-text" id="fb-p2-1"></div>
         </div>
-        <div class="score-display">
-          <span>Overall Status:</span>
-          <span class="status-badge status-pending" id="status-p2">PENDING</span>
+      </div>
+      <p class="reading-text">Far in the north of the Philippines are the Batanes Islands, home to the Ivatan and Itbayat people. These islands often experience strong winds and heavy rain because they are located in the typhoon belt. Most land is rugged, so houses are built along the coast where it is easier to plant crops. Ivatan houses are special. They have thick stone walls and sturdy roofs to withstand storms. Farmers plant sweet potato, taro, and yams in small fields. They also grow bananas and citrus fruits.</p>
+      <div class="quiz-box" data-week="p3">
+        <h4>Comprehension Questions</h4>
+        <div class="mcq-item" id="q-p3-0">
+          <div class="question-text">1. Where are the Batanes Islands located?</div>
+          <div class="options">
+            <button class="option-btn" onclick="checkMCQ('p3', 0, 'A', 'B', this)">A. South of the Philippines</button>
+            <button class="option-btn" onclick="checkMCQ('p3', 0, 'B', 'B', this)">B. Far north of the Philippines</button>
+            <button class="option-btn" onclick="checkMCQ('p3', 0, 'C', 'B', this)">C. East of the Philippines</button>
+          </div><div class="feedback-text" id="fb-p3-0"></div>
         </div>
+        <div class="mcq-item" id="q-p3-1">
+          <div class="question-text">2. Why do they experience strong winds and heavy rain?</div>
+          <div class="options">
+            <button class="option-btn" onclick="checkMCQ('p3', 1, 'A', 'C', this)">A. They are near the equator</button>
+            <button class="option-btn" onclick="checkMCQ('p3', 1, 'B', 'C', this)">B. They are near the mountains</button>
+            <button class="option-btn" onclick="checkMCQ('p3', 1, 'C', 'C', this)">C. They are located in the typhoon belt</button>
+          </div><div class="feedback-text" id="fb-p3-1"></div>
+        </div>
+        <div class="score-display"><span>Overall Status:</span><span class="status-badge status-pending" id="status-p3">PENDING</span></div>
+      </div>
+    </div>
+
+    <!-- WEEK 4 -->
+    <button class="accordion"><span><span class="week-tag">Week 4</span> The Cow and the Carabao</span></button>
+    <div class="panel" id="panel-p4">
+      <div class="controls-box">
+        <div class="timer-row">
+          <div><div style="font-size:0.75rem; font-weight:bold; color:#166534;">READING TIMER</div><div class="timer-display" id="timer-display-p4">00:00</div></div>
+          <div class="btn-group">
+            <button class="btn-timer btn-start" onclick="startTimer('p4')">▶ Start</button>
+            <button class="btn-timer btn-stop" onclick="stopTimer('p4')">⏸ Stop</button>
+            <button class="btn-timer btn-reset" onclick="resetTimer('p4')">↺ Reset</button>
+          </div>
+        </div>
+      </div>
+      <p class="reading-text">Long ago, a farmer had a carabao and a cow. The carabao was bigger, but the cow worked just as hard. One day, the farmer said, "I can get more from my farm if my carabao works all day and my cow works all night." This went on for a month till finally, the carabao cried, "It is just too hot to work all day!" "Want to go for a swim?" asked the cow. "It will cool you off." The carabao happily agreed. They went off without the farmer's consent. Before swimming, they hung their skin on a tree branch. But it wasn't long till the farmer went looking for them. Upon seeing the farmer, they rushed to put on their skin. In their rush, the carabao had worn the cow's skin, and the cow had worn the carabao's skin. From then on, cows have sagging skin while carabaos have tight skin.</p>
+      <div class="quiz-box" data-week="p4">
+        <h4>Comprehension Questions</h4>
+        <div class="mcq-item" id="q-p4-0">
+          <div class="question-text">1. What did the farmer decide?</div>
+          <div class="options">
+            <button class="option-btn" onclick="checkMCQ('p4', 0, 'A', 'B', this)">A. To sell the animals</button>
+            <button class="option-btn" onclick="checkMCQ('p4', 0, 'B', 'B', this)">B. To make the carabao work all day and the cow all night</button>
+            <button class="option-btn" onclick="checkMCQ('p4', 0, 'C', 'B', this)">C. To give them a vacation</button>
+          </div><div class="feedback-text" id="fb-p4-0"></div>
+        </div>
+        <div class="mcq-item" id="q-p4-1">
+          <div class="question-text">2. What happened when they rushed to put on their skin?</div>
+          <div class="options">
+            <button class="option-btn" onclick="checkMCQ('p4', 1, 'A', 'C', this)">A. They became friends</button>
+            <button class="option-btn" onclick="checkMCQ('p4', 1, 'B', 'C', this)">B. They ran away</button>
+            <button class="option-btn" onclick="checkMCQ('p4', 1, 'C', 'C', this)">C. They wore each other's skin</button>
+          </div><div class="feedback-text" id="fb-p4-1"></div>
+        </div>
+        <div class="score-display"><span>Overall Status:</span><span class="status-badge status-pending" id="status-p4">PENDING</span></div>
       </div>
     </div>
   </div>
+  
+  <div class="card">
+    <h2>🔵 Key Stage 2 - Basic (Filipino)</h2>
+    
+    <!-- WEEK 1 -->
+    <button class="accordion"><span><span class="week-tag">Week 1</span> Si Mia at ang Masayang Sabado</span></button>
+    <div class="panel" id="panel-b1">
+      <div class="controls-box">
+        <div class="timer-row">
+          <div><div style="font-size:0.75rem; font-weight:bold; color:#166534;">READING TIMER</div><div class="timer-display" id="timer-display-b1">00:00</div></div>
+          <div class="btn-group">
+            <button class="btn-timer btn-start" onclick="startTimer('b1')">▶ Start</button>
+            <button class="btn-timer btn-stop" onclick="stopTimer('b1')">⏸ Stop</button>
+            <button class="btn-timer btn-reset" onclick="resetTimer('b1')">↺ Reset</button>
+          </div>
+        </div>
+      </div>
+      <p class="reading-text">Isang umaga ng Sabado, masayang gumising si Mia. Maglilinis ako ng silid at mag-aalaga ng aking mga alagang hayop! sabi niya. Una niyang pinakain ang aso at ibon. Pagkatapos, kumuha si Mia ng walis at sinimulang walisan ang bakuran. Tumulong ang kaniyang kapatid na Sam na naglinis na rin sa loob ng bahay. Nang matapos ang gawaing bahay, sabay silang naglaro ng sipa sa likod ng bahay. Sa araw na iyon, natutuhan ni Mia na ang sipag at samahan ay mahalaga sa pamilya.</p>
+      <div class="quiz-box" data-week="b1">
+        <h4>Part 1: Multiple Choice</h4>
+        <div class="mcq-item" id="q-b1-0">
+          <div class="question-text">1. Ano ang ginawa ni Mia pagkagising niya sa umaga ng Sabado?</div>
+          <div class="options">
+            <button class="option-btn" onclick="checkMCQ('b1', 0, 'A', 'B', this)">A. Naglaro agad ng sipa</button>
+            <button class="option-btn" onclick="checkMCQ('b1', 0, 'B', 'B', this)">B. Naglinis ng silid at nag-alaga ng hayop</button>
+            <button class="option-btn" onclick="checkMCQ('b1', 0, 'C', 'B', this)">C. Natulog buong umaga</button>
+          </div><div class="feedback-text" id="fb-b1-0"></div>
+        </div>
+        <div class="mcq-item" id="q-b1-1">
+          <div class="question-text">2. Sino ang tumulong kay Mia sa paglilinis ng bahay?</div>
+          <div class="options">
+            <button class="option-btn" onclick="checkMCQ('b1', 1, 'A', 'C', this)">A. Si Nanay</button>
+            <button class="option-btn" onclick="checkMCQ('b1', 1, 'B', 'C', this)">B. Si Tatay</button>
+            <button class="option-btn" onclick="checkMCQ('b1', 1, 'C', 'C', this)">C. Si Sam</button>
+          </div><div class="feedback-text" id="fb-b1-1"></div>
+        </div>
+        <div class="score-display"><span>Overall Status:</span><span class="status-badge status-pending" id="status-b1">PENDING</span></div>
+      </div>
+    </div>
 
+    <!-- WEEK 2 -->
+    <button class="accordion"><span><span class="week-tag">Week 2</span> Ang mga Munting Patak Ulan</span></button>
+    <div class="panel" id="panel-b2">
+      <div class="controls-box">
+        <div class="timer-row">
+          <div><div style="font-size:0.75rem; font-weight:bold; color:#166534;">READING TIMER</div><div class="timer-display" id="timer-display-b2">00:00</div></div>
+          <div class="btn-group">
+            <button class="btn-timer btn-start" onclick="startTimer('b2')">▶ Start</button>
+            <button class="btn-timer btn-stop" onclick="stopTimer('b2')">⏸ Stop</button>
+            <button class="btn-timer btn-reset" onclick="resetTimer('b2')">↺ Reset</button>
+          </div>
+        </div>
+      </div>
+      <p class="reading-text">May mga munting patak-ulan na nakatira sa ulap. Isang araw, napuno ng mga munting patak-ulan ang ulap at bumaba sila sa lupa. Ang ilan ay napunta sa mga ugat ng mga puno at halaman. Dumungaw sa bintana ang batang si Ursula at nakita niya ang mga tanim niya. Naisip niya na hindi na niya ito kailangan diligan dahil sa pag-ulan. Ngumiti siya at sinabing Maraming salamat sa ulan.</p>
+      <div class="quiz-box" data-week="b2">
+        <h4>Part 1: Multiple Choice</h4>
+        <div class="mcq-item" id="q-b2-0">
+          <div class="question-text">1. Ang mga patak-ulan ay nakatira saan?</div>
+          <div class="options">
+            <button class="option-btn" onclick="checkMCQ('b2', 0, 'A', 'B', this)">A. Sa ilalim ng lupa</button>
+            <button class="option-btn" onclick="checkMCQ('b2', 0, 'B', 'B', this)">B. Sa ulap</button>
+            <button class="option-btn" onclick="checkMCQ('b2', 0, 'C', 'B', this)">C. Sa dagat</button>
+          </div><div class="feedback-text" id="fb-b2-0"></div>
+        </div>
+        <div class="mcq-item" id="q-b2-1">
+          <div class="question-text">2. Bakit nagpasalamat si Ursula sa ulan?</div>
+          <div class="options">
+            <button class="option-btn" onclick="checkMCQ('b2', 1, 'A', 'C', this)">A. Dahil basa siya</button>
+            <button class="option-btn" onclick="checkMCQ('b2', 1, 'B', 'C', this)">B. Dahil malamig</button>
+            <button class="option-btn" onclick="checkMCQ('b2', 1, 'C', 'C', this)">C. Dahil nadiligan ang kanyang mga tanim</button>
+          </div><div class="feedback-text" id="fb-b2-1"></div>
+        </div>
+        <div class="score-display"><span>Overall Status:</span><span class="status-badge status-pending" id="status-b2">PENDING</span></div>
+      </div>
+    </div>
+
+    <!-- WEEK 3 -->
+    <button class="accordion"><span><span class="week-tag">Week 3</span> Ang Ngipin ni Efren</span></button>
+    <div class="panel" id="panel-b3">
+      <div class="controls-box">
+        <div class="timer-row">
+          <div><div style="font-size:0.75rem; font-weight:bold; color:#166534;">READING TIMER</div><div class="timer-display" id="timer-display-b3">00:00</div></div>
+          <div class="btn-group">
+            <button class="btn-timer btn-start" onclick="startTimer('b3')">▶ Start</button>
+            <button class="btn-timer btn-stop" onclick="stopTimer('b3')">⏸ Stop</button>
+            <button class="btn-timer btn-reset" onclick="resetTimer('b3')">↺ Reset</button>
+          </div>
+        </div>
+      </div>
+      <p class="reading-text">Si Efren ay batang mahilig kumain ng kendi at iba pang matatamis na pagkain. Minsan lang siyang magsipilyo ng ngipin. Madalas ay nakakatulog siya na hindi nagsisipilyo. Pinapaalalahanan siya ng kanyang ina na huwag matutulog nang hindi nagsisipilyo, pero hindi niya ito sinusunod. Isang araw ay biglang narinig ng nanay ang sigaw ni Efren. Umiiyak ito. "Nanay, nanay masakit ang ngipin ko. Hindi po ako makanguya at makakain." ang sabi ni Efren. "Ikaw kasi hindi ka nakikinig sa akin," ang sabi ng Nanay. May butas na ang ngipin ni Efren. Dinala ng Nanay si Efren sa dentista.</p>
+      <div class="quiz-box" data-week="b3">
+        <h4>Part 1: Multiple Choice</h4>
+        <div class="mcq-item" id="q-b3-0">
+          <div class="question-text">1. Ano ang hilig kainin ni Efren?</div>
+          <div class="options">
+            <button class="option-btn" onclick="checkMCQ('b3', 0, 'A', 'B', this)">A. Gulay</button>
+            <button class="option-btn" onclick="checkMCQ('b3', 0, 'B', 'B', this)">B. Kendi at matatamis</button>
+            <button class="option-btn" onclick="checkMCQ('b3', 0, 'C', 'B', this)">C. Prutas</button>
+          </div><div class="feedback-text" id="fb-b3-0"></div>
+        </div>
+        <div class="mcq-item" id="q-b3-1">
+          <div class="question-text">2. Bakit sumakit ang ngipin ni Efren?</div>
+          <div class="options">
+            <button class="option-btn" onclick="checkMCQ('b3', 1, 'A', 'C', this)">A. Nadapa siya</button>
+            <button class="option-btn" onclick="checkMCQ('b3', 1, 'B', 'C', this)">B. Kumain siya ng mansanas</button>
+            <button class="option-btn" onclick="checkMCQ('b3', 1, 'C', 'C', this)">C. Hindi siya nagsisipilyo</button>
+          </div><div class="feedback-text" id="fb-b3-1"></div>
+        </div>
+        <div class="score-display"><span>Overall Status:</span><span class="status-badge status-pending" id="status-b3">PENDING</span></div>
+      </div>
+    </div>
+
+    <!-- WEEK 4 -->
+    <button class="accordion"><span><span class="week-tag">Week 4</span> Si Dana at Hana</span></button>
+    <div class="panel" id="panel-b4">
+      <div class="controls-box">
+        <div class="timer-row">
+          <div><div style="font-size:0.75rem; font-weight:bold; color:#166534;">READING TIMER</div><div class="timer-display" id="timer-display-b4">00:00</div></div>
+          <div class="btn-group">
+            <button class="btn-timer btn-start" onclick="startTimer('b4')">▶ Start</button>
+            <button class="btn-timer btn-stop" onclick="stopTimer('b4')">⏸ Stop</button>
+            <button class="btn-timer btn-reset" onclick="resetTimer('b4')">↺ Reset</button>
+          </div>
+        </div>
+      </div>
+      <p class="reading-text">Sa Baryo Maligaya, ako ay may kilalang magkaibigang palaging magkasama. Sila ay sina Dana at Hana. Mahal na mahal nila ang isa’t isa. Sa paggawa ng kanilang takdang aralin ay magkasama rin sila. Sa pag-uwi ay sabay din sila. Magkaibigan ang kanilang mga magulang. Kinagigiliwan sila ng kanilang mga kapitbahay dahil pareho silang masipag, magalang at mabait. Lahat ay natutuwa sa kanila.</p>
+      <div class="quiz-box" data-week="b4">
+        <h4>Part 1: Multiple Choice</h4>
+        <div class="mcq-item" id="q-b4-0">
+          <div class="question-text">1. Sino ang magkaibigan sa kwento?</div>
+          <div class="options">
+            <button class="option-btn" onclick="checkMCQ('b4', 0, 'A', 'B', this)">A. Sina Mia at Sam</button>
+            <button class="option-btn" onclick="checkMCQ('b4', 0, 'B', 'B', this)">B. Sina Dana at Hana</button>
+            <button class="option-btn" onclick="checkMCQ('b4', 0, 'C', 'B', this)">C. Sina Efren at Ursula</button>
+          </div><div class="feedback-text" id="fb-b4-0"></div>
+        </div>
+        <div class="mcq-item" id="q-b4-1">
+          <div class="question-text">2. Bakit kinagigiliwan sila ng kanilang kapitbahay?</div>
+          <div class="options">
+            <button class="option-btn" onclick="checkMCQ('b4', 1, 'A', 'C', this)">A. Dahil maingay sila</button>
+            <button class="option-btn" onclick="checkMCQ('b4', 1, 'B', 'C', this)">B. Dahil mayaman sila</button>
+            <button class="option-btn" onclick="checkMCQ('b4', 1, 'C', 'C', this)">C. Dahil masipag, magalang, at mabait sila</button>
+          </div><div class="feedback-text" id="fb-b4-1"></div>
+        </div>
+        <div class="score-display"><span>Overall Status:</span><span class="status-badge status-pending" id="status-b4">PENDING</span></div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="card">
+    <h2>🟠 Key Stage 2 - Plus (English)</h2>
+    
+    <!-- WEEK 1 -->
+    <button class="accordion"><span><span class="week-tag">Week 1</span> Mealtime with Family</span></button>
+    <div class="panel" id="panel-p1">
+      <div class="controls-box">
+        <div class="timer-row">
+          <div><div style="font-size:0.75rem; font-weight:bold; color:#166534;">READING TIMER</div><div class="timer-display" id="timer-display-p1">00:00</div></div>
+          <div class="btn-group">
+            <button class="btn-timer btn-start" onclick="startTimer('p1')">▶ Start</button>
+            <button class="btn-timer btn-stop" onclick="stopTimer('p1')">⏸ Stop</button>
+            <button class="btn-timer btn-reset" onclick="resetTimer('p1')">↺ Reset</button>
+          </div>
+        </div>
+      </div>
+      <p class="reading-text">It was a rainy evening at our home in Manila. The aroma of Filipino cooking filled the kitchen. My brother Ben and I could hardly wait for mealtime. We excitedly sat at the table, which was full of food. We bowed our heads for a quick prayer and thanked God for the food. As we ate, we laughed and talked about our day. Our mealtime wasn't just about the food. It was about being together.</p>
+      <div class="quiz-box" data-week="p1">
+        <h4>Comprehension Questions</h4>
+        <div class="mcq-item" id="q-p1-0">
+          <div class="question-text">1. What time of the day was it?</div>
+          <div class="options">
+            <button class="option-btn" onclick="checkMCQ('p1', 0, 'A', 'B', this)">A. Morning</button>
+            <button class="option-btn" onclick="checkMCQ('p1', 0, 'B', 'B', this)">B. Evening</button>
+            <button class="option-btn" onclick="checkMCQ('p1', 0, 'C', 'B', this)">C. Noon</button>
+          </div><div class="feedback-text" id="fb-p1-0"></div>
+        </div>
+        <div class="mcq-item" id="q-p1-1">
+          <div class="question-text">2. What made mealtime special?</div>
+          <div class="options">
+            <button class="option-btn" onclick="checkMCQ('p1', 1, 'A', 'C', this)">A. The food only</button>
+            <button class="option-btn" onclick="checkMCQ('p1', 1, 'B', 'C', this)">B. The rainy weather</button>
+            <button class="option-btn" onclick="checkMCQ('p1', 1, 'C', 'C', this)">C. Being together as a family</button>
+          </div><div class="feedback-text" id="fb-p1-1"></div>
+        </div>
+        <div class="score-display"><span>Overall Status:</span><span class="status-badge status-pending" id="status-p1">PENDING</span></div>
+      </div>
+    </div>
+    
+    <!-- WEEK 2 -->
+    <button class="accordion"><span><span class="week-tag">Week 2</span> Growing Peas</span></button>
+    <div class="panel" id="panel-p2">
+      <div class="controls-box">
+        <div class="timer-row">
+          <div><div style="font-size:0.75rem; font-weight:bold; color:#166534;">READING TIMER</div><div class="timer-display" id="timer-display-p2">00:00</div></div>
+          <div class="btn-group">
+            <button class="btn-timer btn-start" onclick="startTimer('p2')">▶ Start</button>
+            <button class="btn-timer btn-stop" onclick="stopTimer('p2')">⏸ Stop</button>
+            <button class="btn-timer btn-reset" onclick="resetTimer('p2')">↺ Reset</button>
+          </div>
+        </div>
+      </div>
+      <p class="reading-text">We are tiny little baby peas. Round and small, cute and sweet! We swing in our pod, snug and tight. The pod pops open! We fall to the ground. When it rains, we start to sprout. We grow tall and strong when the sun is out. Tiny little baby peas, we grew into plants that swing with the breeze.</p>
+      <div class="quiz-box" data-week="p2">
+        <h4>Comprehension Questions</h4>
+        <div class="mcq-item" id="q-p2-0">
+          <div class="question-text">1. When do the peas start to sprout?</div>
+          <div class="options">
+            <button class="option-btn" onclick="checkMCQ('p2', 0, 'A', 'B', this)">A. When it snows</button>
+            <button class="option-btn" onclick="checkMCQ('p2', 0, 'B', 'B', this)">B. When it rains</button>
+            <button class="option-btn" onclick="checkMCQ('p2', 0, 'C', 'B', this)">C. When it is windy</button>
+          </div><div class="feedback-text" id="fb-p2-0"></div>
+        </div>
+        <div class="mcq-item" id="q-p2-1">
+          <div class="question-text">2. What helps the peas grow tall and strong?</div>
+          <div class="options">
+            <button class="option-btn" onclick="checkMCQ('p2', 1, 'A', 'C', this)">A. The moon</button>
+            <button class="option-btn" onclick="checkMCQ('p2', 1, 'B', 'C', this)">B. The rain</button>
+            <button class="option-btn" onclick="checkMCQ('p2', 1, 'C', 'C', this)">C. The sun</button>
+          </div><div class="feedback-text" id="fb-p2-1"></div>
+        </div>
+        <div class="score-display"><span>Overall Status:</span><span class="status-badge status-pending" id="status-p2">PENDING</span></div>
+      </div>
+    </div>
+
+    <!-- WEEK 3 -->
+    <button class="accordion"><span><span class="week-tag">Week 3</span> Life in the Ivatan Islands</span></button>
+    <div class="panel" id="panel-p3">
+      <div class="controls-box">
+        <div class="timer-row">
+          <div><div style="font-size:0.75rem; font-weight:bold; color:#166534;">READING TIMER</div><div class="timer-display" id="timer-display-p3">00:00</div></div>
+          <div class="btn-group">
+            <button class="btn-timer btn-start" onclick="startTimer('p3')">▶ Start</button>
+            <button class="btn-timer btn-stop" onclick="stopTimer('p3')">⏸ Stop</button>
+            <button class="btn-timer btn-reset" onclick="resetTimer('p3')">↺ Reset</button>
+          </div>
+        </div>
+      </div>
+      <p class="reading-text">Far in the north of the Philippines are the Batanes Islands, home to the Ivatan and Itbayat people. These islands often experience strong winds and heavy rain because they are located in the typhoon belt. Most land is rugged, so houses are built along the coast where it is easier to plant crops. Ivatan houses are special. They have thick stone walls and sturdy roofs to withstand storms. Farmers plant sweet potato, taro, and yams in small fields. They also grow bananas and citrus fruits.</p>
+      <div class="quiz-box" data-week="p3">
+        <h4>Comprehension Questions</h4>
+        <div class="mcq-item" id="q-p3-0">
+          <div class="question-text">1. Where are the Batanes Islands located?</div>
+          <div class="options">
+            <button class="option-btn" onclick="checkMCQ('p3', 0, 'A', 'B', this)">A. South of the Philippines</button>
+            <button class="option-btn" onclick="checkMCQ('p3', 0, 'B', 'B', this)">B. Far north of the Philippines</button>
+            <button class="option-btn" onclick="checkMCQ('p3', 0, 'C', 'B', this)">C. East of the Philippines</button>
+          </div><div class="feedback-text" id="fb-p3-0"></div>
+        </div>
+        <div class="mcq-item" id="q-p3-1">
+          <div class="question-text">2. Why do they experience strong winds and heavy rain?</div>
+          <div class="options">
+            <button class="option-btn" onclick="checkMCQ('p3', 1, 'A', 'C', this)">A. They are near the equator</button>
+            <button class="option-btn" onclick="checkMCQ('p3', 1, 'B', 'C', this)">B. They are near the mountains</button>
+            <button class="option-btn" onclick="checkMCQ('p3', 1, 'C', 'C', this)">C. They are located in the typhoon belt</button>
+          </div><div class="feedback-text" id="fb-p3-1"></div>
+        </div>
+        <div class="score-display"><span>Overall Status:</span><span class="status-badge status-pending" id="status-p3">PENDING</span></div>
+      </div>
+    </div>
+
+    <!-- WEEK 4 -->
+    <button class="accordion"><span><span class="week-tag">Week 4</span> The Cow and the Carabao</span></button>
+    <div class="panel" id="panel-p4">
+      <div class="controls-box">
+        <div class="timer-row">
+          <div><div style="font-size:0.75rem; font-weight:bold; color:#166534;">READING TIMER</div><div class="timer-display" id="timer-display-p4">00:00</div></div>
+          <div class="btn-group">
+            <button class="btn-timer btn-start" onclick="startTimer('p4')">▶ Start</button>
+            <button class="btn-timer btn-stop" onclick="stopTimer('p4')">⏸ Stop</button>
+            <button class="btn-timer btn-reset" onclick="resetTimer('p4')">↺ Reset</button>
+          </div>
+        </div>
+      </div>
+      <p class="reading-text">Long ago, a farmer had a carabao and a cow. The carabao was bigger, but the cow worked just as hard. One day, the farmer said, "I can get more from my farm if my carabao works all day and my cow works all night." This went on for a month till finally, the carabao cried, "It is just too hot to work all day!" "Want to go for a swim?" asked the cow. "It will cool you off." The carabao happily agreed. They went off without the farmer's consent. Before swimming, they hung their skin on a tree branch. But it wasn't long till the farmer went looking for them. Upon seeing the farmer, they rushed to put on their skin. In their rush, the carabao had worn the cow's skin, and the cow had worn the carabao's skin. From then on, cows have sagging skin while carabaos have tight skin.</p>
+      <div class="quiz-box" data-week="p4">
+        <h4>Comprehension Questions</h4>
+        <div class="mcq-item" id="q-p4-0">
+          <div class="question-text">1. What did the farmer decide?</div>
+          <div class="options">
+            <button class="option-btn" onclick="checkMCQ('p4', 0, 'A', 'B', this)">A. To sell the animals</button>
+            <button class="option-btn" onclick="checkMCQ('p4', 0, 'B', 'B', this)">B. To make the carabao work all day and the cow all night</button>
+            <button class="option-btn" onclick="checkMCQ('p4', 0, 'C', 'B', this)">C. To give them a vacation</button>
+          </div><div class="feedback-text" id="fb-p4-0"></div>
+        </div>
+        <div class="mcq-item" id="q-p4-1">
+          <div class="question-text">2. What happened when they rushed to put on their skin?</div>
+          <div class="options">
+            <button class="option-btn" onclick="checkMCQ('p4', 1, 'A', 'C', this)">A. They became friends</button>
+            <button class="option-btn" onclick="checkMCQ('p4', 1, 'B', 'C', this)">B. They ran away</button>
+            <button class="option-btn" onclick="checkMCQ('p4', 1, 'C', 'C', this)">C. They wore each other's skin</button>
+          </div><div class="feedback-text" id="fb-p4-1"></div>
+        </div>
+        <div class="score-display"><span>Overall Status:</span><span class="status-badge status-pending" id="status-p4">PENDING</span></div>
+      </div>
+    </div>
+  </div>
+  
   <a href="teacher.html" class="btn-back">⬅️ Back to Teacher App</a>
 </div>
 
@@ -303,9 +689,8 @@
 
 <script>
 /* =========================================
-   LEARNER MANAGEMENT (Para mag-reset)
+   LEARNER MANAGEMENT (Reset)
 ========================================= */
-// Kinukuha ang pangalan ng bata mula sa Teacher App (localStorage)
 function loadLearnerName() {
   let teacherState = JSON.parse(localStorage.getItem('aral_teacher_app') || '{}');
   if (teacherState.learner && teacherState.learner.name) {
@@ -315,7 +700,6 @@ function loadLearnerName() {
 
 function resetLearner() {
   if(confirm("Sigurado ka bang gusto mong mag-reset? Mabubura ang kasalukuyang pangalan ng bata at magsisimula sa bago.")) {
-    // Ibabalik sa teacher.html para maglagay ng bagong pangalan
     window.location.href = "teacher.html";
   }
 }
@@ -422,7 +806,7 @@ function saveToTeacherApp(weekId, status) {
 }
 
 /* =========================================
-   TIMER LOGIC (Walang highlight feature)
+   TIMER LOGIC
 ========================================= */
 let timers = {}; 
 function formatTime(totalSeconds) {
@@ -469,7 +853,9 @@ for (var i = 0; i < acc.length; i++) {
       document.getElementById('floating-assess').style.display = 'flex';
       
       const weekTag = this.querySelector('.week-tag').textContent;
-      activeWeek = weekTag.toLowerCase().replace("week ", "b"); 
+      const isEnglish = this.closest('.card').querySelector('h2').textContent.includes('Plus');
+      const weekNum = weekTag.toLowerCase().replace("week ", "");
+      activeWeek = (isEnglish ? 'p' : 'b') + weekNum; 
     } 
   });
 }
