@@ -22,7 +22,7 @@
   .main-title-section { text-align: center; padding: 40px 20px 20px; }
   .main-title-section h2 { color: var(--primary-blue); font-size: 1.5rem; margin-bottom: 10px; }
   .main-title-section p { font-size: 0.9rem; color: #64748b; }
-  .cards-container { display: flex; justify-content: center; gap: 30px; padding: 20px 40px 60px; flex-wrap: wrap; max-width: 1000px; margin: 0 auto; flex: 1; }
+  .cards-container { display: flex; justify-content: center; gap: 30px; padding: 20px 40px 40px; flex-wrap: wrap; max-width: 1000px; margin: 0 auto; }
   .card { background: var(--card-bg); border-radius: 12px; padding: 40px 30px; width: 380px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; transition: transform 0.2s; }
   .card:hover { transform: translateY(-5px); }
   .icon { font-size: 3rem; margin-bottom: 15px; }
@@ -30,6 +30,16 @@
   .card p { font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 30px; min-height: 60px; }
   .btn-enter { background-color: var(--primary-blue); color: white; border: none; padding: 12px 30px; font-size: 1rem; font-weight: 600; border-radius: 6px; cursor: pointer; width: 100%; transition: background-color 0.2s; text-decoration: none; display: inline-block; }
   .btn-enter:hover { background-color: var(--btn-hover); }
+
+  /* SIGNATORIES SECTION */
+  .signatories-section { max-width: 800px; margin: 0 auto 50px; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); text-align: center; }
+  .signatories-section h3 { color: var(--primary-blue); margin-bottom: 30px; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; }
+  .signatures-container { display: flex; justify-content: space-around; gap: 20px; flex-wrap: wrap; }
+  .signature-box { text-align: center; width: 250px; }
+  .signature-line { border-bottom: 2px solid #000; height: 40px; margin-bottom: 10px; }
+  .signature-name { font-weight: 700; font-size: 1rem; }
+  .signature-role { font-size: 0.85rem; color: #64748b; font-style: italic; }
+
   @media (max-width: 768px) { .cards-container { flex-direction: column; align-items: center; padding: 20px; } .card { width: 100%; max-width: 400px; } .proponents { flex-direction: column; gap: 15px; } }
 </style>
 </head>
@@ -38,15 +48,13 @@
     <div class="logo-container"><div class="logo-placeholder">AES</div></div>
     <h1>ANGELA ELEMENTARY SCHOOL</h1>
     <p>Academic Recovery and Accessible Learning (ARAL) Reading Program</p>
-    <div class="proponents">
-      <div class="proponent"><div class="label">Lead Proponent</div><div class="name">RONELYN M. PRODIGO</div><div class="role">School Head</div></div>
-      <div class="proponent"><div class="label">Developer</div><div class="name">NOEL D. CAMBA</div><div class="role">Master Teacher 1</div></div>
-    </div>
   </header>
+
   <div class="main-title-section">
     <h2>System Access Portal</h2>
     <p>Alinsunod sa DepEd Order No. 18, s. 2025 at DepEd Memorandum No. 064, s. 2025 (ARAL Program)</p>
   </div>
+
   <div class="cards-container">
     <div class="card">
       <div class="icon">👩‍🏫</div><h3>Teacher</h3>
@@ -59,5 +67,23 @@
       <a href="leader.html" class="btn-enter">Pumasok &rarr;</a>
     </div>
   </div>
+
+  <!-- SIGNATORIES -->
+  <div class="signatories-section">
+    <h3>Proponents & Signatories</h3>
+    <div class="signatures-container">
+      <div class="signature-box">
+        <div class="signature-line"></div>
+        <div class="signature-name">RONELYN M. PRODIGO</div>
+        <div class="signature-role">School Head</div>
+      </div>
+      <div class="signature-box">
+        <div class="signature-line"></div>
+        <div class="signature-name">NOEL D. CAMBA</div>
+        <div class="signature-role">Master Teacher 1</div>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
