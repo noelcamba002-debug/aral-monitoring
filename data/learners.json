@@ -11,8 +11,10 @@
     "teacherName": "NOEL D. CAMBA",
     "learnerName": "EXAMPLE",
     "grade": "5",
-    "statuses": {},
+    "statuses": {
+      "b1": "ok"
+    },
     "notes": {},
-    "lastUpdated": "2026-10-22T10:31:59.224Z"
+    "lastUpdated": "2026-10-22T10:32:16.367Z"
   }
 }
