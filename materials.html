@@ -3,16 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ARAL Reading Materials Library</title>
+<title>ARAL Tutor's Guide & Assessment</title>
 <style>
-  :root { --primary:#0f3b77; --bg:#f3f4f6; --text:#1f2937; --line:#d1d5db; }
+  :root { --primary:#0f3b77; --bg:#f3f4f6; --text:#1f2937; --line:#d1d5db; --green:#1b7a3d; --red:#b3261e; --yellow:#b8860b; --tutor:#8b5cf6; --learner:#0ea5e9; }
   body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 0; }
   header { background: var(--primary); color: white; padding: 20px; text-align: center; }
   .wrap { max-width: 900px; margin: 20px auto; padding: 0 15px; }
   .card { background: white; border-radius: 10px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
   .card h2 { color: var(--primary); margin-top: 0; border-bottom: 2px solid var(--line); padding-bottom: 10px; }
   
-  /* Accordion Styles */
   .accordion { background-color: #fff; color: var(--text); cursor: pointer; padding: 15px; width: 100%; border: none; text-align: left; outline: none; font-size: 1.05rem; transition: 0.4s; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
   .accordion:last-of-type { border-bottom: none; }
   .accordion:hover { background-color: #f1f5f9; }
@@ -20,81 +19,369 @@
   .accordion:after { content: '\002B'; color: #777; font-weight: bold; float: right; margin-left: 5px; }
   .accordion.active:after { content: "\2212"; }
   
-  .panel { padding: 0 18px; background-color: white; max-height: 0; overflow: hidden; transition: max-height 0.2s ease-out; border-left: 3px solid #e0e7ff; }
-  .panel p { line-height: 1.6; color: #475569; font-size: 0.95rem; margin: 15px 0; white-space: pre-wrap; }
+  .panel { padding: 0 18px; background-color: white; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; border-left: 3px solid #e0e7ff; }
   
+  .controls-box { background: #f0fdf4; border: 2px solid #4ade80; padding: 15px; margin: 15px 0; border-radius: 8px; display: flex; flex-direction: column; gap: 10px; }
+  .timer-row { display: flex; justify-content: space-between; align-items: center; }
+  .timer-display { font-size: 1.5rem; font-weight: bold; color: #166534; font-family: monospace; }
+  
+  .btn-group { display: flex; gap: 5px; flex-wrap: wrap; }
+  .btn-timer { padding: 8px 15px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 0.85rem; }
+  .btn-start { background: var(--green); color: white; }
+  .btn-stop { background: var(--red); color: white; }
+  .btn-reset { background: #6b7280; color: white; }
+  
+  .btn-guided { background: #8b5cf6; color: white; padding: 10px; font-size: 0.9rem; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.2s; }
+  .btn-guided:hover { background: #7c3aed; }
+  .btn-guided.active { background: #f59e0b; }
+
+  .reading-text { line-height: 1.8; color: #475569; font-size: 1.1rem; margin: 15px 0; white-space: pre-wrap; }
+  .reading-text span.highlight { background-color: #fef08a; color: #b45309; font-weight: bold; border-radius: 3px; padding: 2px; }
+
+  .script-box { background: #f8fafc; border-left: 4px solid var(--tutor); padding: 15px; margin: 15px 0; border-radius: 4px; }
+  .script-box h4 { margin: 0 0 10px 0; color: var(--tutor); font-size: 0.95rem; }
+  .dialogue { display: flex; margin-bottom: 10px; font-size: 0.95rem; }
+  .speaker { font-weight: bold; min-width: 70px; }
+  .speaker.tutor { color: var(--tutor); }
+  .speaker.learner { color: var(--learner); }
+  .line { color: #334155; }
+
+  .quiz-box { background: #fffbeb; border-left: 4px solid #f59e0b; padding: 15px; margin-top: 15px; border-radius: 4px; }
+  .quiz-box h4 { margin: 0 0 10px 0; color: #b45309; font-size: 0.95rem; }
+  
+  /* MCQ STYLES */
+  .mcq-item { margin-bottom: 20px; background: #fff; padding: 15px; border-radius: 6px; border: 1px solid #e5e7eb; }
+  .question-text { font-size: 1rem; font-weight: bold; color: #78350f; margin-bottom: 10px; }
+  .options { display: flex; flex-direction: column; gap: 8px; }
+  .option-btn { padding: 10px; border: 1px solid #d1d5db; background: #f9fafb; border-radius: 5px; text-align: left; cursor: pointer; font-size: 0.95rem; transition: 0.2s; color: #1f2937; }
+  .option-btn:hover { background: #e5e7eb; }
+  .option-btn.correct { background: #dcfce7; border-color: var(--green); color: var(--green); font-weight: bold; }
+  .option-btn.wrong { background: #fee2e2; border-color: var(--red); color: var(--red); font-weight: bold; }
+  .option-btn:disabled { cursor: not-allowed; opacity: 0.8; }
+  .feedback-text { margin-top: 10px; font-weight: bold; font-size: 0.9rem; display: none; }
+  .feedback-text.correct { color: var(--green); }
+  .feedback-text.wrong { color: var(--red); }
+
+  /* FLOATING TEACHER ASSESSMENT BUTTONS */
+  .floating-assess { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: white; padding: 15px 25px; border-radius: 50px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); display: flex; align-items: center; gap: 15px; z-index: 1000; border: 2px solid var(--primary); display: none; }
+  .floating-assess span { font-weight: bold; font-size: 0.9rem; color: var(--primary); }
+  .btn-float { padding: 10px 20px; border: none; border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 1rem; transition: 0.2s; display: flex; align-items: center; gap: 5px; }
+  .btn-float-ok { background: var(--green); color: white; }
+  .btn-float-no { background: var(--red); color: white; }
+  .btn-float:hover { transform: scale(1.05); }
+  
+  .score-display { margin-top: 15px; font-weight: bold; font-size: 0.9rem; display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 2px solid #fcd34d; }
+  .status-badge { padding: 4px 10px; border-radius: 12px; color: white; font-size: 0.8rem; }
+  .status-ok { background: var(--green); }
+  .status-part { background: var(--yellow); }
+  .status-no { background: var(--red); }
+  .status-pending { background: #9ca3af; }
+
   .week-tag { background: #e0e7ff; color: #3730a3; font-weight: bold; font-size: 0.8rem; padding: 3px 8px; border-radius: 12px; margin-right: 10px; }
   .btn-back { display: inline-block; background: var(--primary); color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 20px; }
-  .btn-back:hover { background: #0a254d; }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>📚 ARAL Reading Materials</h1>
+  <h1>📚 ARAL Tutor's Guide & Assessment</h1>
   <p>Angela Elementary School</p>
 </header>
+
+<!-- FLOATING TEACHER ASSESSMENT BUTTONS -->
+<div class="floating-assess" id="floating-assess">
+  <span>Reading Assessment:</span>
+  <button class="btn-float btn-float-ok" onclick="recordTeacherAssess('ok')">✅ Tama</button>
+  <button class="btn-float btn-float-no" onclick="recordTeacherAssess('no')">❌ Mali</button>
+</div>
 
 <div class="wrap">
   
   <div class="card">
     <h2>🔵 Key Stage 2 - Basic (Filipino)</h2>
     
+    <!-- WEEK 1 -->
     <button class="accordion"><span><span class="week-tag">Week 1</span> Si Mia at ang Masayang Sabado</span></button>
-    <div class="panel">
-      <p>Isang umaga ng Sabado, masayang gumising si Mia. "Maglilinis ako ng silid at mag-aalaga ng aking mga alagang hayop!" sabi niya. Una niyang pinakain ang aso at ibon. Kumahol ang aso at humuni naman ang ibon na tila nagpapasalamat sa pagkain na ibinigay ni Mia. Pagkatapos, kumuha si Mia ng walis at sinimulang walisan ang bakuran. Tumulong ang kaniyang kapatid na si Sam na naglinis na rin sa loob ng bahay. "Ang sipag mo talaga, Ate Mia," sabi ni Sam habang nag-aayos ng mga silya sa sala. Nang matapos ang gawaing bahay, sabay silang naglaro ng sipa sa likod ng bahay sa ilalim ng punong mangga. Masaya silang nagtawanan at naglaro hanggang hapon. Sa araw na iyon, natutuhan ni Mia na ang sipag, samahan, at masayang damdamin ay mahalaga sa bawat pamilya.</p>
+    <div class="panel" id="panel-b1">
+      
+      <div class="controls-box">
+        <div class="timer-row">
+          <div>
+            <div style="font-size:0.75rem; font-weight:bold; color:#166534;">READING TIMER</div>
+            <div class="timer-display" id="timer-display-b1">00:00</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn-timer btn-start" onclick="startTimer('b1')">▶ Start</button>
+            <button class="btn-timer btn-stop" onclick="stopTimer('b1')">⏸ Stop</button>
+            <button class="btn-timer btn-reset" onclick="resetTimer('b1')">↺ Reset</button>
+          </div>
+        </div>
+        <button class="btn-guided" id="btn-guided-b1" onclick="startAutoHighlight('b1')">▶️ Start Guided Reading (Auto-Highlight)</button>
+      </div>
+
+      <div class="script-box">
+        <h4>🗣️ Tutor's Script (Pakikinig at Pagbasa)</h4>
+        <div class="dialogue"><div class="speaker tutor">Tutor:</div><div class="line">Magandang umaga! Ngayon, babasahin natin ang kwentong "Si Mia at ang Masayang Sabado." Pakinggan mo akong magbasa, tapos ikaw naman ang magbasa.</div></div>
+      </div>
+
+      <p class="reading-text" id="text-b1">Isang umaga ng Sabado, masayang gumising si Mia. Maglilinis ako ng silid at mag-aalaga ng aking mga alagang hayop! sabi niya. Una niyang pinakain ang aso at ibon. Pagkatapos, kumuha si Mia ng walis at sinimulang walisan ang bakuran. Tumulong ang kaniyang kapatid na Sam na naglinis na rin sa loob ng bahay. Nang matapos ang gawaing bahay, sabay silang naglaro ng sipa sa likod ng bahay. Sa araw na iyon, natutuhan ni Mia na ang sipag at samahan ay mahalaga sa pamilya.</p>
+      
+      <!-- AUTO-CHECK MCQ QUIZ -->
+      <div class="quiz-box" data-week="b1">
+        <h4>Part 1: Multiple Choice (Auto-Check ng System)</h4>
+        
+        <div class="mcq-item" id="q-b1-0">
+          <div class="question-text">1. Ano ang ginawa ni Mia pagkagising niya sa umaga ng Sabado?</div>
+          <div class="options">
+            <button class="option-btn" onclick="checkMCQ('b1', 0, 'A', 'B', this)">A. Naglaro agad ng sipa</button>
+            <button class="option-btn" onclick="checkMCQ('b1', 0, 'B', 'B', this)">B. Naglinis ng silid at nag-alaga ng hayop</button>
+            <button class="option-btn" onclick="checkMCQ('b1', 0, 'C', 'B', this)">C. Natulog buong umaga</button>
+          </div>
+          <div class="feedback-text" id="fb-b1-0"></div>
+        </div>
+
+        <div class="mcq-item" id="q-b1-1">
+          <div class="question-text">2. Sino ang tumulong kay Mia sa paglilinis ng bahay?</div>
+          <div class="options">
+            <button class="option-btn" onclick="checkMCQ('b1', 1, 'A', 'C', this)">A. Si Nanay</button>
+            <button class="option-btn" onclick="checkMCQ('b1', 1, 'B', 'C', this)">B. Si Tatay</button>
+            <button class="option-btn" onclick="checkMCQ('b1', 1, 'C', 'C', this)">C. Si Sam</button>
+          </div>
+          <div class="feedback-text" id="fb-b1-1"></div>
+        </div>
+
+        <div class="score-display">
+          <span>Overall Status:</span>
+          <span class="status-badge status-pending" id="status-b1">PENDING</span>
+        </div>
+      </div>
     </div>
 
-    <button class="accordion"><span><span class="week-tag">Week 2</span> Ang mga Munting Patak Ulan</span></button>
-    <div class="panel">
-      <p>May mga munting patak-ulan na nakatira sa ulap. Isang araw, napuno ng mga munting patak-ulan ang ulap. Nagsiksikan na sila at kinailangan na nilang bumaba sa lupa. Ang unang patak-ulan ay bumagsak sa ulo ng usa. Ang ikalawa ay pumatak sa naglalambiting unggoy. Ang ikatlo naman ay sa upo at ang ikaapat ay pumatok sa ubas. Magkakasunod na bumagsak ang natitirang mga mumunting patak-ulan. Ang ilan sa kanila ay napunta sa mga ugat ng mga puno at mga halaman. Dumungaw sa bintana ang batang si Ursula at nakita niya ang mga tanim niya. Naisip niya na hindi na niya ito kailangan diligan dahil sa pag-ulan. Ngumiti siya at sinabing "Maraming salamat sa ulan."</p>
-    </div>
-
-    <button class="accordion"><span><span class="week-tag">Week 3</span> Ang Ngipin ni Efren</span></button>
-    <div class="panel">
-      <p>Si Efren ay batang mahilig kumain ng kendi at iba pang matatamis na pagkain. Minsan lang siyang magsipilyo ng ngipin. Madalas ay nakakatulog siya na hindi nagsisipilyo. Pinapaalalahanan siya ng kanyang ina na huwag matutulog nang hindi nagsisipilyo, pero hindi niya ito sinusunod. Isang araw ay biglang narinig ng nanay ang sigaw ni Efren. Umiiyak ito. "Nanay, nanay masakit ang ngipin ko. Hindi po ako makanguya at makakain." ang sabi ni Efren. "Ikaw kasi hindi ka nakikinig sa akin," ang sabi ng Nanay. May butas na ang ngipin ni Efren. Dinala ng Nanay si Efren sa dentista.</p>
-    </div>
-  </div>
-
-  <div class="card">
-    <h2>🟠 Key Stage 2 - Plus (English)</h2>
-    
-    <button class="accordion"><span><span class="week-tag">Week 1</span> Mealtime with Family</span></button>
-    <div class="panel">
-      <p>It was a rainy evening at our home in Manila. The aroma of Filipino cooking filled the kitchen. My brother Ben and I could hardly wait for mealtime. That night, we were having chicken adobo with rice - everyone's favorite! "Maya, Ben, maghugas na kayo ng kamay!" Nanay called from the kitchen. We rushed to the sink and splashed water as we cleaned our hands. I felt happy because mealtime was always a special moment for us. We excitedly sat at the table, which was full of food: steaming rice, a big bowl of aromatic chicken adobo, and a plate of refreshing salad. There was also a pitcher of cold sago't gulaman. Tatay smiled as he placed the bowl right in the center of the table.</p>
-    </div>
-
-    <button class="accordion"><span><span class="week-tag">Week 2</span> Growing Peas</span></button>
-    <div class="panel">
-      <p>We are tiny little baby peas. Round and small, cute and sweet! We swing in our pod, snug and tight. We eat our food, and we grow inside! The pod pops open! We fall to the ground. There we lie, without a sound. When it rains, we start to sprout. We grow tall and strong when the sun is out. Tiny little baby peas, we grew into plants that swing with the breeze.</p>
-    </div>
-
-    <button class="accordion"><span><span class="week-tag">Week 3</span> Life in the Ivatan Islands</span></button>
-    <div class="panel">
-      <p>Far in the north of the Philippines are the Batanes Islands, home to the Ivatan and Itbayat people. These islands often experience strong winds and heavy rain because they are located in the typhoon belt. Most land is rugged, so houses are built along the coast where it is easier to plant crops. Ivatan houses are special. They have thick stone walls and sturdy roofs to withstand storms. Farmers plant sweet potato, taro, and yams in small fields. They also grow bananas and citrus fruits.</p>
-    </div>
-
-    <button class="accordion"><span><span class="week-tag">Week 4</span> The Cow and the Carabao</span></button>
-    <div class="panel">
-      <p>Long ago, a farmer had a carabao and a cow. The carabao was bigger, but the cow worked just as hard. One day, the farmer said, "I can get more from my farm if my carabao works all day and my cow works all night." This went on for a month till finally, the carabao cried, "It is just too hot to work all day!" "Want to go for a swim?" asked the cow. "It will cool you off." The carabao happily agreed. They went off without the farmer's consent. Before swimming, they hung their skin on a tree branch. But it wasn't long till the farmer went looking for them. Upon seeing the farmer, they rushed to put on their skin. In their rush, the carabao had worn the cow's skin, and the cow had worn the carabao's skin. From then on, cows have sagging skin while carabaos have tight skin.</p>
-    </div>
   </div>
 
   <a href="teacher.html" class="btn-back">⬅️ Back to Teacher App</a>
 </div>
 
 <script>
-var acc = document.getElementsByClassName("accordion");
-var i;
+/* =========================================
+   AUTO WORD HIGHLIGHTING LOGIC
+========================================= */
+let highlightIntervals = {};
 
-for (i = 0; i < acc.length; i++) {
+function startAutoHighlight(weekId) {
+  const textElement = document.getElementById(`text-${weekId}`);
+  const btn = document.getElementById(`btn-guided-${weekId}`);
+
+  // Kung may tumatakbo nang interval, i-reset muna
+  if (highlightIntervals[weekId]) {
+    clearInterval(highlightIntervals[weekId]);
+    highlightIntervals[weekId] = null;
+  }
+
+  // Kunin ang plain text at hatiin sa mga salita
+  const originalText = textElement.textContent;
+  const words = originalText.split(/\s+/);
+  
+  // I-wrap ang bawat salita sa <span>
+  textElement.innerHTML = words.map(word => `<span>${word}</span>`).join(' ');
+  const spans = textElement.querySelectorAll('span');
+  let currentIndex = 0;
+
+  // I-update ang button
+  btn.textContent = "⏹ Stop Guided Reading";
+  btn.classList.add("active");
+
+  // Simulan ang auto-highlighting (600ms bawat salita)
+  highlightIntervals[weekId] = setInterval(() => {
+    // Alisin ang highlight sa dating salita
+    if (currentIndex > 0) {
+      spans[currentIndex - 1].classList.remove('highlight');
+    }
+
+    // Kung natapos na lahat ng salita, awtomatikong itigil
+    if (currentIndex >= spans.length) {
+      clearInterval(highlightIntervals[weekId]);
+      highlightIntervals[weekId] = null;
+      btn.textContent = "▶️ Start Guided Reading (Auto-Highlight)";
+      btn.classList.remove("active");
+      return;
+    }
+
+    // I-highlight ang kasalukuyang salita
+    spans[currentIndex].classList.add('highlight');
+    // I-scroll papunta sa salita kung mahaba ang kwento
+    spans[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    
+    currentIndex++;
+  }, 600); // 600 milliseconds bawat salita (pwedeng baguhin sa 400 kung mas mabilis)
+}
+
+/* =========================================
+   STATE MANAGEMENT
+========================================= */
+let activeWeek = ""; 
+let quizState = {}; 
+
+function showFloatingButtons(weekId) {
+  activeWeek = weekId;
+  const floatBox = document.getElementById('floating-assess');
+  floatBox.style.display = 'flex';
+}
+
+function recordTeacherAssess(status) {
+  if (!activeWeek) return alert("Pumili muna ng kwento!");
+
+  if (!quizState[activeWeek]) {
+    quizState[activeWeek] = { mcqScore: 0, mcqChecked: 0, teacherStatus: "" };
+  }
+  
+  quizState[activeWeek].teacherStatus = status;
+  
+  // I-flash ang button
+  const btn = event.target;
+  const originalColor = btn.style.background;
+  btn.style.background = "#fbbf24"; 
+  setTimeout(() => { btn.style.background = originalColor; }, 300);
+
+  updateOverallStatus(activeWeek);
+}
+
+/* =========================================
+   AUTO-CHECK MCQ LOGIC
+========================================= */
+function checkMCQ(weekId, questionIndex, selectedOption, correctOption, btnElement) {
+  const parentQuestion = btnElement.closest('.mcq-item');
+  const allButtons = parentQuestion.querySelectorAll('.option-btn');
+  const feedbackElement = document.getElementById(`fb-${weekId}-${questionIndex}`);
+
+  allButtons.forEach(btn => btn.disabled = true);
+
+  if (!quizState[weekId]) {
+    quizState[weekId] = { mcqScore: 0, mcqChecked: 0, teacherStatus: "" };
+  }
+
+  if (selectedOption === correctOption) {
+    btnElement.classList.add('correct');
+    feedbackElement.textContent = "✅ Tama! Magaling!";
+    feedbackElement.className = "feedback-text correct";
+    feedbackElement.style.display = "block";
+    quizState[weekId].mcqScore++;
+  } else {
+    btnElement.classList.add('wrong');
+    feedbackElement.textContent = "❌ Mali. Ang tamang sagot ay " + correctOption + ".";
+    feedbackElement.className = "feedback-text wrong";
+    feedbackElement.style.display = "block";
+    allButtons.forEach(btn => {
+      if (btn.textContent.trim().startsWith(correctOption)) {
+        btn.classList.add('correct');
+      }
+    });
+  }
+
+  quizState[weekId].mcqChecked++;
+  updateOverallStatus(weekId);
+}
+
+/* =========================================
+   OVERALL STATUS LOGIC
+========================================= */
+function updateOverallStatus(weekId) {
+  const state = quizState[weekId];
+  if (!state) return;
+
+  const statusBadge = document.getElementById(`status-${weekId}`);
+  const mcqTotal = 2; 
+
+  if (state.mcqChecked < mcqTotal || !state.teacherStatus) {
+    statusBadge.textContent = "PENDING";
+    statusBadge.className = "status-badge status-pending";
+    return;
+  }
+
+  let finalStatus = "no";
+
+  if (state.teacherStatus === 'no') {
+    finalStatus = 'no';
+  } else if (state.teacherStatus === 'ok') {
+    if (state.mcqScore === mcqTotal) {
+      finalStatus = 'ok';
+    } else if (state.mcqScore > 0) {
+      finalStatus = 'part';
+    } else {
+      finalStatus = 'no';
+    }
+  }
+
+  if (finalStatus === 'ok') {
+    statusBadge.textContent = "OBSERVED ✅";
+    statusBadge.className = "status-badge status-ok";
+  } else if (finalStatus === 'part') {
+    statusBadge.textContent = "PARTIALLY 🟡";
+    statusBadge.className = "status-badge status-part";
+  } else {
+    statusBadge.textContent = "NOT OBSERVED ❌";
+    statusBadge.className = "status-badge status-no";
+  }
+
+  saveToTeacherApp(weekId, finalStatus);
+}
+
+function saveToTeacherApp(weekId, status) {
+  let teacherState = JSON.parse(localStorage.getItem('aral_teacher_app') || '{}');
+  if (!teacherState.status) teacherState.status = {};
+  teacherState.status[weekId] = status;
+  localStorage.setItem('aral_teacher_app', JSON.stringify(teacherState));
+}
+
+/* =========================================
+   TIMER LOGIC
+========================================= */
+let timers = {}; 
+function formatTime(totalSeconds) {
+  const m = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
+  const s = (totalSeconds % 60).toString().padStart(2, '0');
+  return `${m}:${s}`;
+}
+function startTimer(weekId) {
+  if (!timers[weekId]) timers[weekId] = { seconds: 0, interval: null, isRunning: false };
+  if (timers[weekId].isRunning) return;
+  timers[weekId].isRunning = true;
+  timers[weekId].interval = setInterval(() => {
+    timers[weekId].seconds++;
+    document.getElementById(`timer-display-${weekId}`).textContent = formatTime(timers[weekId].seconds);
+  }, 1000);
+}
+function stopTimer(weekId) {
+  if (!timers[weekId] || !timers[weekId].isRunning) return;
+  clearInterval(timers[weekId].interval);
+  timers[weekId].isRunning = false;
+}
+function resetTimer(weekId) {
+  if (!timers[weekId]) return;
+  clearInterval(timers[weekId].interval);
+  timers[weekId].seconds = 0;
+  timers[weekId].isRunning = false;
+  document.getElementById(`timer-display-${weekId}`).textContent = "00:00";
+}
+
+/* =========================================
+   ACCORDION LOGIC
+========================================= */
+var acc = document.getElementsByClassName("accordion");
+for (var i = 0; i < acc.length; i++) {
   acc[i].addEventListener("click", function() {
     this.classList.toggle("active");
     var panel = this.nextElementSibling;
     if (panel.style.maxHeight) {
       panel.style.maxHeight = null;
+      document.getElementById('floating-assess').style.display = 'none';
+      activeWeek = "";
     } else {
       panel.style.maxHeight = panel.scrollHeight + "px";
+      document.getElementById('floating-assess').style.display = 'flex';
+      // Kunin ang weekId mula sa unang span (hal. "Week 1")
+      const weekTag = this.querySelector('.week-tag').textContent;
+      activeWeek = weekTag.toLowerCase().replace("week ", "b"); // Hal. "b1"
     } 
   });
 }
