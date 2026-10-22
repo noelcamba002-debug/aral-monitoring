@@ -30,21 +30,8 @@
   .btn-start { background: var(--green); color: white; }
   .btn-stop { background: var(--red); color: white; }
   .btn-reset { background: #6b7280; color: white; }
-  
-  .btn-guided { background: #8b5cf6; color: white; padding: 10px; font-size: 0.9rem; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.2s; }
-  .btn-guided:hover { background: #7c3aed; }
-  .btn-guided.active { background: #f59e0b; }
 
-  /* READING TEXT STYLE */
-  .reading-text { line-height: 1.8; color: #475569; font-size: 1.1rem; margin: 15px 0; }
-  .reading-text span.highlight { 
-    background-color: #fef08a; 
-    color: #b45309; 
-    font-weight: bold; 
-    border-radius: 3px; 
-    padding: 2px; 
-    box-shadow: 0 0 5px #fef08a;
-  }
+  .reading-text { line-height: 1.8; color: #475569; font-size: 1.1rem; margin: 15px 0; white-space: pre-wrap; }
 
   .script-box { background: #f8fafc; border-left: 4px solid var(--tutor); padding: 15px; margin: 15px 0; border-radius: 4px; }
   .script-box h4 { margin: 0 0 10px 0; color: var(--tutor); font-size: 0.95rem; }
@@ -87,6 +74,9 @@
 
   .week-tag { background: #e0e7ff; color: #3730a3; font-weight: bold; font-size: 0.8rem; padding: 3px 8px; border-radius: 12px; margin-right: 10px; }
   .btn-back { display: inline-block; background: var(--primary); color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 20px; }
+  
+  .top-bar { background: #fff; padding: 15px; border-radius: 10px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+  .btn-new { background: #0ea5e9; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
 </style>
 </head>
 <body>
@@ -96,22 +86,21 @@
   <p>Angela Elementary School</p>
 </header>
 
-<!-- FLOATING TEACHER ASSESSMENT BUTTONS -->
-<div class="floating-assess" id="floating-assess">
-  <span>Reading Assessment:</span>
-  <button class="btn-float btn-float-ok" onclick="recordTeacherAssess('ok')">✅ Tama</button>
-  <button class="btn-float btn-float-no" onclick="recordTeacherAssess('no')">❌ Mali</button>
-</div>
-
 <div class="wrap">
   
+  <div class="top-bar">
+    <div>
+      <strong>Learner:</strong> <span id="display-learner-name" style="color: #b45309;">Walang pangalan</span>
+    </div>
+    <button class="btn-new" onclick="resetLearner()">🔄 New Learner</button>
+  </div>
+
   <div class="card">
     <h2>🔵 Key Stage 2 - Basic (Filipino)</h2>
     
     <!-- WEEK 1 -->
     <button class="accordion"><span><span class="week-tag">Week 1</span> Si Mia at ang Masayang Sabado</span></button>
     <div class="panel" id="panel-b1">
-      
       <div class="controls-box">
         <div class="timer-row">
           <div>
@@ -124,19 +113,15 @@
             <button class="btn-timer btn-reset" onclick="resetTimer('b1')">↺ Reset</button>
           </div>
         </div>
-        <button class="btn-guided" id="btn-guided-b1" onclick="startAutoHighlight('b1')">▶️ Start Guided Reading (Auto-Highlight)</button>
       </div>
-
       <div class="script-box">
-        <h4>🗣️ Tutor's Script (Pakikinig at Pagbasa)</h4>
+        <h4>🗣️ Tutor's Script</h4>
         <div class="dialogue"><div class="speaker tutor">Tutor:</div><div class="line">Magandang umaga! Ngayon, babasahin natin ang kwentong "Si Mia at ang Masayang Sabado." Pakinggan mo akong magbasa, tapos ikaw naman ang magbasa.</div></div>
       </div>
-
       <p class="reading-text" id="text-b1">Isang umaga ng Sabado, masayang gumising si Mia. Maglilinis ako ng silid at mag-aalaga ng aking mga alagang hayop! sabi niya. Una niyang pinakain ang aso at ibon. Pagkatapos, kumuha si Mia ng walis at sinimulang walisan ang bakuran. Tumulong ang kaniyang kapatid na Sam na naglinis na rin sa loob ng bahay. Nang matapos ang gawaing bahay, sabay silang naglaro ng sipa sa likod ng bahay. Sa araw na iyon, natutuhan ni Mia na ang sipag at samahan ay mahalaga sa pamilya.</p>
       
       <div class="quiz-box" data-week="b1">
-        <h4>Part 1: Multiple Choice (Auto-Check ng System)</h4>
-        
+        <h4>Part 1: Multiple Choice</h4>
         <div class="mcq-item" id="q-b1-0">
           <div class="question-text">1. Ano ang ginawa ni Mia pagkagising niya sa umaga ng Sabado?</div>
           <div class="options">
@@ -146,7 +131,6 @@
           </div>
           <div class="feedback-text" id="fb-b1-0"></div>
         </div>
-
         <div class="mcq-item" id="q-b1-1">
           <div class="question-text">2. Sino ang tumulong kay Mia sa paglilinis ng bahay?</div>
           <div class="options">
@@ -156,7 +140,6 @@
           </div>
           <div class="feedback-text" id="fb-b1-1"></div>
         </div>
-
         <div class="score-display">
           <span>Overall Status:</span>
           <span class="status-badge status-pending" id="status-b1">PENDING</span>
@@ -164,65 +147,177 @@
       </div>
     </div>
 
+    <!-- WEEK 2 -->
+    <button class="accordion"><span><span class="week-tag">Week 2</span> Ang mga Munting Patak Ulan</span></button>
+    <div class="panel" id="panel-b2">
+      <div class="controls-box">
+        <div class="timer-row">
+          <div>
+            <div style="font-size:0.75rem; font-weight:bold; color:#166534;">READING TIMER</div>
+            <div class="timer-display" id="timer-display-b2">00:00</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn-timer btn-start" onclick="startTimer('b2')">▶ Start</button>
+            <button class="btn-timer btn-stop" onclick="stopTimer('b2')">⏸ Stop</button>
+            <button class="btn-timer btn-reset" onclick="resetTimer('b2')">↺ Reset</button>
+          </div>
+        </div>
+      </div>
+      <div class="script-box">
+        <h4>🗣️ Tutor's Script</h4>
+        <div class="dialogue"><div class="speaker tutor">Tutor:</div><div class="line">Ngayon naman, pag-usapan natin ang tungkol sa ulan. Ano ang nararamdaman mo tuwing umuulan?</div></div>
+      </div>
+      <p class="reading-text" id="text-b2">May mga munting patak-ulan na nakatira sa ulap. Isang araw, napuno ng mga munting patak-ulan ang ulap at bumaba sila sa lupa. Ang ilan ay napunta sa mga ugat ng mga puno at halaman. Dumungaw sa bintana ang batang si Ursula at nakita niya ang mga tanim niya. Naisip niya na hindi na niya ito kailangan diligan dahil sa pag-ulan. Ngumiti siya at sinabing Maraming salamat sa ulan.</p>
+      
+      <div class="quiz-box" data-week="b2">
+        <h4>Part 1: Multiple Choice</h4>
+        <div class="mcq-item" id="q-b2-0">
+          <div class="question-text">1. Ang mga patak-ulan ay nakatira saan?</div>
+          <div class="options">
+            <button class="option-btn" onclick="checkMCQ('b2', 0, 'A', 'B', this)">A. Sa ilalim ng lupa</button>
+            <button class="option-btn" onclick="checkMCQ('b2', 0, 'B', 'B', this)">B. Sa ulap</button>
+            <button class="option-btn" onclick="checkMCQ('b2', 0, 'C', 'B', this)">C. Sa dagat</button>
+          </div>
+          <div class="feedback-text" id="fb-b2-0"></div>
+        </div>
+        <div class="mcq-item" id="q-b2-1">
+          <div class="question-text">2. Bakit nagpasalamat si Ursula sa ulan?</div>
+          <div class="options">
+            <button class="option-btn" onclick="checkMCQ('b2', 1, 'A', 'C', this)">A. Dahil basa siya</button>
+            <button class="option-btn" onclick="checkMCQ('b2', 1, 'B', 'C', this)">B. Dahil malamig</button>
+            <button class="option-btn" onclick="checkMCQ('b2', 1, 'C', 'C', this)">C. Dahil nadiligan ang kanyang mga tanim</button>
+          </div>
+          <div class="feedback-text" id="fb-b2-1"></div>
+        </div>
+        <div class="score-display">
+          <span>Overall Status:</span>
+          <span class="status-badge status-pending" id="status-b2">PENDING</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="card">
+    <h2>🟠 Key Stage 2 - Plus (English)</h2>
+    
+    <!-- WEEK 1 -->
+    <button class="accordion"><span><span class="week-tag">Week 1</span> Mealtime with Family</span></button>
+    <div class="panel" id="panel-p1">
+      <div class="controls-box">
+        <div class="timer-row">
+          <div>
+            <div style="font-size:0.75rem; font-weight:bold; color:#166534;">READING TIMER</div>
+            <div class="timer-display" id="timer-display-p1">00:00</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn-timer btn-start" onclick="startTimer('p1')">▶ Start</button>
+            <button class="btn-timer btn-stop" onclick="stopTimer('p1')">⏸ Stop</button>
+            <button class="btn-timer btn-reset" onclick="resetTimer('p1')">↺ Reset</button>
+          </div>
+        </div>
+      </div>
+      <p class="reading-text" id="text-p1">It was a rainy evening at our home in Manila. The aroma of Filipino cooking filled the kitchen. My brother Ben and I could hardly wait for mealtime. We excitedly sat at the table, which was full of food. We bowed our heads for a quick prayer and thanked God for the food. As we ate, we laughed and talked about our day. Our mealtime wasn't just about the food. It was about being together.</p>
+      
+      <div class="quiz-box" data-week="p1">
+        <h4>Comprehension Questions</h4>
+        <div class="mcq-item" id="q-p1-0">
+          <div class="question-text">1. What time of the day was it?</div>
+          <div class="options">
+            <button class="option-btn" onclick="checkMCQ('p1', 0, 'A', 'B', this)">A. Morning</button>
+            <button class="option-btn" onclick="checkMCQ('p1', 0, 'B', 'B', this)">B. Evening</button>
+            <button class="option-btn" onclick="checkMCQ('p1', 0, 'C', 'B', this)">C. Noon</button>
+          </div>
+          <div class="feedback-text" id="fb-p1-0"></div>
+        </div>
+        <div class="mcq-item" id="q-p1-1">
+          <div class="question-text">2. What made mealtime special?</div>
+          <div class="options">
+            <button class="option-btn" onclick="checkMCQ('p1', 1, 'A', 'C', this)">A. The food only</button>
+            <button class="option-btn" onclick="checkMCQ('p1', 1, 'B', 'C', this)">B. The rainy weather</button>
+            <button class="option-btn" onclick="checkMCQ('p1', 1, 'C', 'C', this)">C. Being together as a family</button>
+          </div>
+          <div class="feedback-text" id="fb-p1-1"></div>
+        </div>
+        <div class="score-display">
+          <span>Overall Status:</span>
+          <span class="status-badge status-pending" id="status-p1">PENDING</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- WEEK 2 -->
+    <button class="accordion"><span><span class="week-tag">Week 2</span> Growing Peas</span></button>
+    <div class="panel" id="panel-p2">
+      <div class="controls-box">
+        <div class="timer-row">
+          <div>
+            <div style="font-size:0.75rem; font-weight:bold; color:#166534;">READING TIMER</div>
+            <div class="timer-display" id="timer-display-p2">00:00</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn-timer btn-start" onclick="startTimer('p2')">▶ Start</button>
+            <button class="btn-timer btn-stop" onclick="stopTimer('p2')">⏸ Stop</button>
+            <button class="btn-timer btn-reset" onclick="resetTimer('p2')">↺ Reset</button>
+          </div>
+        </div>
+      </div>
+      <p class="reading-text" id="text-p2">We are tiny little baby peas. Round and small, cute and sweet! We swing in our pod, snug and tight. The pod pops open! We fall to the ground. When it rains, we start to sprout. We grow tall and strong when the sun is out. Tiny little baby peas, we grew into plants that swing with the breeze.</p>
+      
+      <div class="quiz-box" data-week="p2">
+        <h4>Comprehension Questions</h4>
+        <div class="mcq-item" id="q-p2-0">
+          <div class="question-text">1. When do the peas start to sprout?</div>
+          <div class="options">
+            <button class="option-btn" onclick="checkMCQ('p2', 0, 'A', 'B', this)">A. When it snows</button>
+            <button class="option-btn" onclick="checkMCQ('p2', 0, 'B', 'B', this)">B. When it rains</button>
+            <button class="option-btn" onclick="checkMCQ('p2', 0, 'C', 'B', this)">C. When it is windy</button>
+          </div>
+          <div class="feedback-text" id="fb-p2-0"></div>
+        </div>
+        <div class="mcq-item" id="q-p2-1">
+          <div class="question-text">2. What helps the peas grow tall and strong?</div>
+          <div class="options">
+            <button class="option-btn" onclick="checkMCQ('p2', 1, 'A', 'C', this)">A. The moon</button>
+            <button class="option-btn" onclick="checkMCQ('p2', 1, 'B', 'C', this)">B. The rain</button>
+            <button class="option-btn" onclick="checkMCQ('p2', 1, 'C', 'C', this)">C. The sun</button>
+          </div>
+          <div class="feedback-text" id="fb-p2-1"></div>
+        </div>
+        <div class="score-display">
+          <span>Overall Status:</span>
+          <span class="status-badge status-pending" id="status-p2">PENDING</span>
+        </div>
+      </div>
+    </div>
   </div>
 
   <a href="teacher.html" class="btn-back">⬅️ Back to Teacher App</a>
 </div>
 
+<!-- FLOATING TEACHER ASSESSMENT BUTTONS -->
+<div class="floating-assess" id="floating-assess">
+  <span>Reading Assessment:</span>
+  <button class="btn-float btn-float-ok" onclick="recordTeacherAssess('ok')">✅ Tama</button>
+  <button class="btn-float btn-float-no" onclick="recordTeacherAssess('no')">❌ Mali</button>
+</div>
+
 <script>
 /* =========================================
-   AUTO WORD HIGHLIGHTING LOGIC
+   LEARNER MANAGEMENT (Para mag-reset)
 ========================================= */
-let highlightIntervals = {};
-
-function startAutoHighlight(weekId) {
-  const textElement = document.getElementById(`text-${weekId}`);
-  const btn = document.getElementById(`btn-guided-${weekId}`);
-
-  // Kung may tumatakbo na, i-reset
-  if (highlightIntervals[weekId]) {
-    clearInterval(highlightIntervals[weekId]);
-    highlightIntervals[weekId] = null;
-    btn.textContent = "▶️ Start Guided Reading (Auto-Highlight)";
-    btn.classList.remove("active");
-    textElement.innerHTML = textElement.textContent; 
-    return;
+// Kinukuha ang pangalan ng bata mula sa Teacher App (localStorage)
+function loadLearnerName() {
+  let teacherState = JSON.parse(localStorage.getItem('aral_teacher_app') || '{}');
+  if (teacherState.learner && teacherState.learner.name) {
+    document.getElementById('display-learner-name').textContent = teacherState.learner.name;
   }
+}
 
-  // Linisin ang text at hatiin sa mga salita
-  const originalText = textElement.textContent.trim();
-  const words = originalText.split(/\s+/);
-  
-  // I-wrap ang bawat salita sa <span>
-  textElement.innerHTML = words.map(word => `<span>${word}</span>`).join(' ');
-  const spans = textElement.querySelectorAll('span');
-  let currentIndex = 0;
-
-  btn.textContent = "⏹ Stop Guided Reading";
-  btn.classList.add("active");
-
-  // Simulan ang highlight (600ms bawat salita)
-  highlightIntervals[weekId] = setInterval(() => {
-    // Alisin ang highlight sa dating salita
-    if (currentIndex > 0) {
-      spans[currentIndex - 1].classList.remove('highlight');
-    }
-
-    // Kung natapos na lahat, itigil
-    if (currentIndex >= spans.length) {
-      clearInterval(highlightIntervals[weekId]);
-      highlightIntervals[weekId] = null;
-      btn.textContent = "▶️ Start Guided Reading (Auto-Highlight)";
-      btn.classList.remove("active");
-      return;
-    }
-
-    // I-highlight ang kasalukuyang salita
-    spans[currentIndex].classList.add('highlight');
-    spans[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
-    
-    currentIndex++;
-  }, 600); 
+function resetLearner() {
+  if(confirm("Sigurado ka bang gusto mong mag-reset? Mabubura ang kasalukuyang pangalan ng bata at magsisimula sa bago.")) {
+    // Ibabalik sa teacher.html para maglagay ng bagong pangalan
+    window.location.href = "teacher.html";
+  }
 }
 
 /* =========================================
@@ -327,7 +422,7 @@ function saveToTeacherApp(weekId, status) {
 }
 
 /* =========================================
-   TIMER LOGIC
+   TIMER LOGIC (Walang highlight feature)
 ========================================= */
 let timers = {}; 
 function formatTime(totalSeconds) {
@@ -378,6 +473,9 @@ for (var i = 0; i < acc.length; i++) {
     } 
   });
 }
+
+// I-load ang pangalan ng learner pagbukas ng page
+window.onload = loadLearnerName;
 </script>
 </body>
 </html>
