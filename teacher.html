@@ -1,54 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ARAL System - Teacher App</title>
-<style>
-  :root{ --green:#1b7a3d; --yellow:#b8860b; --red:#b3261e; --blue:#0b5394; --ink:#1f2937; --line:#d1d5db; --bg:#f3f4f6; }
-  body{font-family:'Segoe UI',sans-serif; margin:0; background:var(--bg); color:var(--ink);}
-  header{background:linear-gradient(135deg,#0b5394,#1b7a3d); color:#fff; padding:18px; text-align:center;}
-  .wrap{max-width:800px; margin:0 auto; padding:14px;}
-  .card{background:#fff; border:1px solid var(--line); border-radius:10px; padding:15px; margin-bottom:15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);}
-  .card h2{margin:0 0 10px; font-size:1.1rem; color:var(--blue);}
-  input, textarea{width:100%; padding:8px; margin-bottom:8px; border:1px solid var(--line); border-radius:5px; box-sizing:border-box; font-family:inherit;}
-  button{padding:10px 15px; border:none; border-radius:5px; font-weight:bold; cursor:pointer; width:100%; margin-bottom:5px; transition:0.2s;}
-  .btn-blue{background:var(--blue); color:#fff;} .btn-blue:hover{background:#083c6b;}
-  .week-item{border:1px solid var(--line); border-radius:8px; padding:12px; margin-bottom:12px; background:#fafafa;}
-  .week-title{font-size:0.95rem; font-weight:bold; margin-bottom:4px;}
-  .week-focus{font-size:0.8rem; color:var(--blue); margin-bottom:8px;}
-  .status-btns{display:flex; gap:5px; margin-top:5px;}
-  .status-btns button{flex:1; border:1px solid #ccc; background:#fff; padding:8px;}
-  .status-btns button.active-ok{background:var(--green); color:#fff; border-color:var(--green);}
-  .status-btns button.active-part{background:var(--yellow); color:#fff; border-color:var(--yellow);}
-  .status-btns button.active-no{background:var(--red); color:#fff; border-color:var(--red);}
-  .toast{position:fixed; bottom:20px; right:20px; background:var(--green); color:#fff; padding:10px 20px; border-radius:5px; display:none; box-shadow:0 4px 6px rgba(0,0,0,0.2); z-index:999;}
-</style>
-</head>
-<body>
-<header><h1>ARAL Reading - Teacher App</h1></header>
-<div class="wrap">
-  <div class="card">
-    <h2>🔗 System Connection</h2>
-    <label>GitHub Username</label>
-    <input type="text" id="gitUser" placeholder="e.g. noel_camba">
-    <label>Repository Name</label>
-    <input type="text" id="gitRepo" placeholder="e.g. aral-monitoring">
-    <label>Personal Access Token (PAT)</label>
-    <input type="password" id="gitToken" placeholder="ghp_...">
-    <button class="btn-blue" onclick="saveConfig()">Save Configuration</button>
-    <p style="font-size:0.7rem; color:#666; margin-top:5px;">*Isang beses lang ito ilalagay. Ito ang magko-connect sa Principal Dashboard.</p>
-  </div>
-  <div class="card">
-    <h2>👤 Teacher & Learner Info</h2>
-    <input type="text" id="teacherName" placeholder="Teacher's Name" onchange="updateLocalInfo()">
-    <input type="text" id="learnerName" placeholder="Learner's Name" onchange="updateLocalInfo()">
-    <input type="text" id="gradeLevel" placeholder="Grade Level" onchange="updateLocalInfo()">
-  </div>
-  <div id="weeksContainer"></div>
-</div>
-<div class="toast" id="toast">☁️ Saved to Cloud!</div>
 <script>
+// Ang Web App URL na kinopya mo sa Apps Script
+const GAS_URL = "ILAGAY_DITO_ANG_WEB_APP_URL_MO"; 
+
 const CURRICULUM = [
   {id:"b1", w:"Week 1", t:"Word Concept (Print Carries Meaning)", f:"Filipino · M,S,A,I,O,B,E"},
   {id:"b2", w:"Week 2", t:"Phoneme Manipulation + Diphthongs", f:"Filipino · U,T,K,L,N,G"},
@@ -59,16 +12,18 @@ const CURRICULUM = [
   {id:"b7", w:"Week 7", t:"Syllable Manipulation", f:"English · b,n,k,v,e,w,j"},
   {id:"b8", w:"Week 8", t:"Phoneme Mani + Blends + CVCe", f:"English · bl,cl,st / cake,bike"}
 ];
+
 let state = JSON.parse(localStorage.getItem('aral_teacher_app') || '{}');
 if(!state.learner) state.learner = {teacher:"", name:"", grade:""};
 if(!state.status) state.status = {};
 if(!state.notes) state.notes = {};
 
-function saveConfig(){ state.config = { user: document.getElementById('gitUser').value, repo: document.getElementById('gitRepo').value, token: document.getElementById('gitToken').value }; localStorage.setItem('aral_teacher_app', JSON.stringify(state)); alert("Config saved!"); }
 function loadConfig(){
-  if(state.config) { document.getElementById('gitUser').value = state.config.user || ""; document.getElementById('gitRepo').value = state.config.repo || ""; document.getElementById('gitToken').value = state.config.token || ""; }
-  document.getElementById('teacherName').value = state.learner.teacher || ""; document.getElementById('learnerName').value = state.learner.name || ""; document.getElementById('gradeLevel').value = state.learner.grade || "";
+  document.getElementById('teacherName').value = state.learner.teacher || ""; 
+  document.getElementById('learnerName').value = state.learner.name || ""; 
+  document.getElementById('gradeLevel').value = state.learner.grade || "";
 }
+
 function renderWeeks(){
   const container = document.getElementById('weeksContainer');
   container.innerHTML = '<div class="card"><h2>📚 KS2 Basic (Weeks 1-8)</h2>' + 
@@ -77,27 +32,48 @@ function renderWeeks(){
       return `<div class="week-item"><div class="week-title">${f.w}: ${f.t}</div><div class="week-focus">${f.f}</div><div class="status-btns"><button class="${st==='ok'?'active-ok':''}" onclick="setStatus('${f.id}','ok')">✅ Observed</button><button class="${st==='part'?'active-part':''}" onclick="setStatus('${f.id}','part')">🟡 Partially</button><button class="${st==='no'?'active-no':''}" onclick="setStatus('${f.id}','no')">❌ Not Observed</button></div><textarea placeholder="Tutor notes..." oninput="setNote('${f.id}', this.value)">${note}</textarea></div>`;
     }).join('') + '</div>';
 }
-function setStatus(id, st){ state.status[id] = st; localStorage.setItem('aral_teacher_app', JSON.stringify(state)); renderWeeks(); syncToGitHub(); }
-function setNote(id, val){ state.notes[id] = val; localStorage.setItem('aral_teacher_app', JSON.stringify(state)); clearTimeout(window.typingTimer); window.typingTimer = setTimeout(syncToGitHub, 1500); }
-function updateLocalInfo(){ state.learner.teacher = document.getElementById('teacherName').value; state.learner.name = document.getElementById('learnerName').value; state.learner.grade = document.getElementById('gradeLevel').value; localStorage.setItem('aral_teacher_app', JSON.stringify(state)); syncToGitHub(); }
-function showToast(){ const toast = document.getElementById('toast'); toast.style.display = 'block'; setTimeout(() => toast.style.display = 'none', 2000); }
-async function syncToGitHub() {
-  const cfg = state.config;
-  if(!cfg || !cfg.user || !cfg.repo || !cfg.token) return; 
-  const learnerId = (state.learner.name + "_" + state.learner.grade).replace(/\s+/g, '_').toLowerCase();
-  if(learnerId.length < 3) return; 
-  const path = `data/learners.json`; const apiUrl = `https://api.github.com/repos/${cfg.user}/${cfg.repo}/contents/${path}`;
-  try {
-    let fileData = await fetch(apiUrl, { headers: { Authorization: `token ${cfg.token}` } }).then(res => res.json());
-    let content = {}; let sha = fileData.sha;
-    if(fileData.content) { let decoded = atob(fileData.content.replace(/\s/g, '')); content = JSON.parse(decoded); }
-    content[learnerId] = { teacherName: state.learner.teacher, learnerName: state.learner.name, grade: state.learner.grade, statuses: state.status, notes: state.notes, lastUpdated: new Date().toISOString() };
-    let newContent = btoa(JSON.stringify(content, null, 2));
-    await fetch(apiUrl, { method: 'PUT', headers: { Authorization: `token ${cfg.token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ message: `Update data for ${state.learner.name}`, content: newContent, sha: sha }) });
-    showToast();
-  } catch(err) { console.error("GitHub Sync Error:", err); }
+
+function setStatus(id, st){ 
+  state.status[id] = st; 
+  localStorage.setItem('aral_teacher_app', JSON.stringify(state)); 
+  renderWeeks(); 
+  syncToCloud(); 
 }
+
+function setNote(id, val){ 
+  state.notes[id] = val; 
+  localStorage.setItem('aral_teacher_app', JSON.stringify(state)); 
+  clearTimeout(window.typingTimer); 
+  window.typingTimer = setTimeout(syncToCloud, 1500); 
+}
+
+function updateLocalInfo(){ 
+  state.learner.teacher = document.getElementById('teacherName').value; 
+  state.learner.name = document.getElementById('learnerName').value; 
+  state.learner.grade = document.getElementById('gradeLevel').value; 
+  localStorage.setItem('aral_teacher_app', JSON.stringify(state)); 
+  syncToCloud(); 
+}
+
+function syncToCloud() {
+  if (!state.learner.name || !state.learner.teacher) return;
+  
+  const payload = {
+    teacherName: state.learner.teacher,
+    learnerName: state.learner.name,
+    grade: state.learner.grade,
+    statuses: state.status,
+    notes: state.notes
+  };
+
+  fetch(GAS_URL, {
+    method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).then(() => {
+    // Optional: Magpakita ng toast notification
+    console.log("Synced to Google Sheets");
+  }).catch(err => console.error("Sync error:", err));
+}
+
 window.onload = () => { loadConfig(); renderWeeks(); };
 </script>
-</body>
-</html>
