@@ -11,13 +11,21 @@
   .wrap { max-width: 900px; margin: 20px auto; padding: 0 15px; }
   .card { background: white; border-radius: 10px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
   .card h2 { color: var(--primary); margin-top: 0; border-bottom: 2px solid var(--line); padding-bottom: 10px; }
-  ul { list-style-type: none; padding: 0; }
-  li { padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 1.05rem; display: flex; align-items: center; gap: 10px; }
-  li:last-child { border-bottom: none; }
-  .week-tag { background: #e0e7ff; color: #3730a3; font-weight: bold; font-size: 0.8rem; padding: 3px 8px; border-radius: 12px; }
+  
+  /* Accordion Styles */
+  .accordion { background-color: #fff; color: var(--text); cursor: pointer; padding: 15px; width: 100%; border: none; text-align: left; outline: none; font-size: 1.05rem; transition: 0.4s; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
+  .accordion:last-of-type { border-bottom: none; }
+  .accordion:hover { background-color: #f1f5f9; }
+  .accordion.active { background-color: #e0e7ff; font-weight: bold; color: #3730a3; }
+  .accordion:after { content: '\002B'; color: #777; font-weight: bold; float: right; margin-left: 5px; }
+  .accordion.active:after { content: "\2212"; }
+  
+  .panel { padding: 0 18px; background-color: white; max-height: 0; overflow: hidden; transition: max-height 0.2s ease-out; border-left: 3px solid #e0e7ff; }
+  .panel p { line-height: 1.6; color: #475569; font-size: 0.95rem; margin: 15px 0; white-space: pre-wrap; }
+  
+  .week-tag { background: #e0e7ff; color: #3730a3; font-weight: bold; font-size: 0.8rem; padding: 3px 8px; border-radius: 12px; margin-right: 10px; }
   .btn-back { display: inline-block; background: var(--primary); color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 20px; }
   .btn-back:hover { background: #0a254d; }
-  .note { font-size: 0.85rem; color: #6b7280; margin-top: 5px; }
 </style>
 </head>
 <body>
@@ -28,33 +36,68 @@
 </header>
 
 <div class="wrap">
+  
   <div class="card">
     <h2>🔵 Key Stage 2 - Basic (Filipino)</h2>
-    <ul>
-      <li><span class="week-tag">Week 1</span> Si Mia at ang Masayang Sabado</li>
-      <li><span class="week-tag">Week 2</span> Ang mga Munting Patak Ulan</li>
-      <li><span class="week-tag">Week 3</span> Ang Ngipin ni Efren / Ang Alamat ng Pinya</li>
-      <li><span class="week-tag">Week 4</span> Si Dana at Hana / Ang Mabait na Tindera</li>
-    </ul>
+    
+    <button class="accordion"><span><span class="week-tag">Week 1</span> Si Mia at ang Masayang Sabado</span></button>
+    <div class="panel">
+      <p>Isang umaga ng Sabado, masayang gumising si Mia. "Maglilinis ako ng silid at mag-aalaga ng aking mga alagang hayop!" sabi niya. Una niyang pinakain ang aso at ibon. Kumahol ang aso at humuni naman ang ibon na tila nagpapasalamat sa pagkain na ibinigay ni Mia. Pagkatapos, kumuha si Mia ng walis at sinimulang walisan ang bakuran. Tumulong ang kaniyang kapatid na si Sam na naglinis na rin sa loob ng bahay. "Ang sipag mo talaga, Ate Mia," sabi ni Sam habang nag-aayos ng mga silya sa sala. Nang matapos ang gawaing bahay, sabay silang naglaro ng sipa sa likod ng bahay sa ilalim ng punong mangga. Masaya silang nagtawanan at naglaro hanggang hapon. Sa araw na iyon, natutuhan ni Mia na ang sipag, samahan, at masayang damdamin ay mahalaga sa bawat pamilya.</p>
+    </div>
+
+    <button class="accordion"><span><span class="week-tag">Week 2</span> Ang mga Munting Patak Ulan</span></button>
+    <div class="panel">
+      <p>May mga munting patak-ulan na nakatira sa ulap. Isang araw, napuno ng mga munting patak-ulan ang ulap. Nagsiksikan na sila at kinailangan na nilang bumaba sa lupa. Ang unang patak-ulan ay bumagsak sa ulo ng usa. Ang ikalawa ay pumatak sa naglalambiting unggoy. Ang ikatlo naman ay sa upo at ang ikaapat ay pumatok sa ubas. Magkakasunod na bumagsak ang natitirang mga mumunting patak-ulan. Ang ilan sa kanila ay napunta sa mga ugat ng mga puno at mga halaman. Dumungaw sa bintana ang batang si Ursula at nakita niya ang mga tanim niya. Naisip niya na hindi na niya ito kailangan diligan dahil sa pag-ulan. Ngumiti siya at sinabing "Maraming salamat sa ulan."</p>
+    </div>
+
+    <button class="accordion"><span><span class="week-tag">Week 3</span> Ang Ngipin ni Efren</span></button>
+    <div class="panel">
+      <p>Si Efren ay batang mahilig kumain ng kendi at iba pang matatamis na pagkain. Minsan lang siyang magsipilyo ng ngipin. Madalas ay nakakatulog siya na hindi nagsisipilyo. Pinapaalalahanan siya ng kanyang ina na huwag matutulog nang hindi nagsisipilyo, pero hindi niya ito sinusunod. Isang araw ay biglang narinig ng nanay ang sigaw ni Efren. Umiiyak ito. "Nanay, nanay masakit ang ngipin ko. Hindi po ako makanguya at makakain." ang sabi ni Efren. "Ikaw kasi hindi ka nakikinig sa akin," ang sabi ng Nanay. May butas na ang ngipin ni Efren. Dinala ng Nanay si Efren sa dentista.</p>
+    </div>
   </div>
 
   <div class="card">
     <h2>🟠 Key Stage 2 - Plus (English)</h2>
-    <ul>
-      <li><span class="week-tag">Week 1</span> Mealtime with Family</li>
-      <li><span class="week-tag">Week 2</span> Growing Peas</li>
-      <li><span class="week-tag">Week 3</span> Life in the Ivatan Islands / The Lost Postcard</li>
-      <li><span class="week-tag">Week 4</span> The Cow and the Carabao / The Lost School Bag</li>
-      <li><span class="week-tag">Week 5</span> Tonyo's Vegetable Garden / A Special Gift for Mom</li>
-      <li><span class="week-tag">Week 6</span> Liam's Big Day / Why Do We Have Fire Drills?</li>
-      <li><span class="week-tag">Week 7</span> Eid al-Fitr / Laya's Journey Home</li>
-      <li><span class="week-tag">Week 8</span> Cooking Perfect Rice / The Beach</li>
-    </ul>
-    <p class="note">*Ang mga reading passages ay matatagpuan sa inyong Learner's Workbook. Gamitin ang listahang ito bilang gabay sa pagtuturo kada linggo.</p>
+    
+    <button class="accordion"><span><span class="week-tag">Week 1</span> Mealtime with Family</span></button>
+    <div class="panel">
+      <p>It was a rainy evening at our home in Manila. The aroma of Filipino cooking filled the kitchen. My brother Ben and I could hardly wait for mealtime. That night, we were having chicken adobo with rice - everyone's favorite! "Maya, Ben, maghugas na kayo ng kamay!" Nanay called from the kitchen. We rushed to the sink and splashed water as we cleaned our hands. I felt happy because mealtime was always a special moment for us. We excitedly sat at the table, which was full of food: steaming rice, a big bowl of aromatic chicken adobo, and a plate of refreshing salad. There was also a pitcher of cold sago't gulaman. Tatay smiled as he placed the bowl right in the center of the table.</p>
+    </div>
+
+    <button class="accordion"><span><span class="week-tag">Week 2</span> Growing Peas</span></button>
+    <div class="panel">
+      <p>We are tiny little baby peas. Round and small, cute and sweet! We swing in our pod, snug and tight. We eat our food, and we grow inside! The pod pops open! We fall to the ground. There we lie, without a sound. When it rains, we start to sprout. We grow tall and strong when the sun is out. Tiny little baby peas, we grew into plants that swing with the breeze.</p>
+    </div>
+
+    <button class="accordion"><span><span class="week-tag">Week 3</span> Life in the Ivatan Islands</span></button>
+    <div class="panel">
+      <p>Far in the north of the Philippines are the Batanes Islands, home to the Ivatan and Itbayat people. These islands often experience strong winds and heavy rain because they are located in the typhoon belt. Most land is rugged, so houses are built along the coast where it is easier to plant crops. Ivatan houses are special. They have thick stone walls and sturdy roofs to withstand storms. Farmers plant sweet potato, taro, and yams in small fields. They also grow bananas and citrus fruits.</p>
+    </div>
+
+    <button class="accordion"><span><span class="week-tag">Week 4</span> The Cow and the Carabao</span></button>
+    <div class="panel">
+      <p>Long ago, a farmer had a carabao and a cow. The carabao was bigger, but the cow worked just as hard. One day, the farmer said, "I can get more from my farm if my carabao works all day and my cow works all night." This went on for a month till finally, the carabao cried, "It is just too hot to work all day!" "Want to go for a swim?" asked the cow. "It will cool you off." The carabao happily agreed. They went off without the farmer's consent. Before swimming, they hung their skin on a tree branch. But it wasn't long till the farmer went looking for them. Upon seeing the farmer, they rushed to put on their skin. In their rush, the carabao had worn the cow's skin, and the cow had worn the carabao's skin. From then on, cows have sagging skin while carabaos have tight skin.</p>
+    </div>
   </div>
 
   <a href="teacher.html" class="btn-back">⬅️ Back to Teacher App</a>
 </div>
 
+<script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.maxHeight) {
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    } 
+  });
+}
+</script>
 </body>
 </html>
