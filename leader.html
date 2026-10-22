@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARAL System - Live Dashboard</title>
+<style>
+  body{font-family:'Segoe UI',sans-serif; margin:0; background:#f3f4f6; color:#1f2937;}
+  header{background:#0f3b77; color:#fff; padding:15px; text-align:center;}
+  .wrap{max-width:1000px; margin:0 auto; padding:20px;}
+  .card{background:#fff; border-radius:10px; padding:20px; margin-bottom:20px; box-shadow:0 2px 4px rgba(0,0,0,0.1);}
+  table{width:100%; border-collapse:collapse; margin-top:15px;}
+  th, td{padding:12px; text-align:left; border-bottom:1px solid #e5e7eb;}
+  th{background:#f9fafb; font-size:0.85rem; color:#6b7280;}
+  .badge-ok{background:#1b7a3d; color:white; padding:3px 8px; border-radius:12px; font-size:0.75rem;}
+  .badge-no{background:#b3261e; color:white; padding:3px 8px; border-radius:12px; font-size:0.75rem;}
+  .live-dot{height:10px; width:10px; background:#ef4444; border-radius:50%; display:inline-block; animation:blink 1s infinite;}
+  @keyframes blink{0%{opacity:1;}50%{opacity:0.3;}100%{opacity:1;}}
+  .alert{color:#b3261e; font-weight:bold; font-size:0.8rem; display:block; margin-top:5px;}
+</style>
+</head>
+<body>
+<header><h2><span class="live-dot"></span> Instructional Leaders' Live Dashboard</h2></header>
+<div class="wrap">
+  <div class="card">
+    <h2>📊 Live Teacher Performance</h2>
+    <p style="font-size:0.85rem; color:#666;">Nag-a-update ito tuwing may fini-fill-upan ang teacher sa kanilang app.</p>
+    <table>
+      <thead><tr><th>Teacher</th><th>Learner</th><th>Grade</th><th>Mastered (✅)</th><th>Needs Intervention (❌)</th><th>Last Update</th></tr></thead>
+      <tbody id="dashboardBody"><tr><td colspan="6">Loading data...</td></tr></tbody>
+    </table>
+  </div>
+</div>
+<script>
+const jsonPath = './data/learners.json';
+async function fetchData() {
+  try {
+    const res = await fetch(`${jsonPath}?t=${new Date().getTime()}`);
+    const data = await res.json();
+    const tbody = document.getElementById('dashboardBody');
+    if(!data || Object.keys(data).length === 0) { tbody.innerHTML = '<tr><td colspan="6">Wala pang data na naipadala ang mga teachers.</td></tr>'; return; }
+    let html = "";
+    for(let key in data) {
+      const learner = data[key];
+      let okCount = 0, noCount = 0;
+      for(let w in learner.statuses) {
+        if(learner.statuses[w] === 'ok') okCount++;
+        if(learner.statuses[w] === 'no') noCount++;
+      }
+      const date = new Date(learner.lastUpdated).toLocaleTimeString();
+      const warning = noCount > 0 ? `<span class="alert">⚠️ Needs Coaching</span>` : "";
+      html += `<tr><td><strong>${learner.teacherName}</strong></td><td>${learner.learnerName}</td><td>${learner.grade}</td><td><span class="badge-ok">${okCount} Weeks</span></td><td><span class="badge-no">${noCount} Weeks</span> ${warning}</td><td>${date}</td></tr>`;
+    }
+    tbody.innerHTML = html;
+  } catch (err) {
+    document.getElementById('dashboardBody').innerHTML = '<tr><td colspan="6" style="color:red;">Error reading data. Make sure data/learners.json exists.</td></tr>';
+  }
+}
+setInterval(fetchData, 3000);
+fetchData();
+</script>
+</body>
+</html>

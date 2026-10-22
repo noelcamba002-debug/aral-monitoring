@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Angela Elementary School - ARAL IRIP System</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --primary-blue: #0f3b77; --text-light: #ffffff; --text-dark: #334155; --bg-gray: #f1f5f9; --card-bg: #ffffff; --btn-hover: #0b2c5a; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Open Sans', sans-serif; background-color: var(--bg-gray); color: var(--text-dark); display: flex; flex-direction: column; min-height: 100vh; }
+  header { background-color: var(--primary-blue); color: var(--text-light); padding: 30px 20px 20px; text-align: center; border-bottom: 4px solid #0a254d; }
+  .logo-container { width: 100px; height: 100px; background-color: #fff; border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 3px solid #ccc; }
+  .logo-placeholder { font-size: 2rem; font-weight: bold; color: var(--primary-blue); }
+  header h1 { font-size: 1.8rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 5px; }
+  header p { font-size: 1rem; font-style: italic; color: #cbd5e1; }
+  .proponents { display: flex; justify-content: center; gap: 40px; margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 15px; }
+  .proponent { text-align: center; }
+  .proponent .label { font-size: 0.65rem; letter-spacing: 1px; color: #94a3b8; text-transform: uppercase; margin-bottom: 3px; }
+  .proponent .name { font-size: 0.95rem; font-weight: 600; }
+  .proponent .role { font-size: 0.8rem; font-style: italic; color: #cbd5e1; }
+  .main-title-section { text-align: center; padding: 40px 20px 20px; }
+  .main-title-section h2 { color: var(--primary-blue); font-size: 1.5rem; margin-bottom: 10px; }
+  .main-title-section p { font-size: 0.9rem; color: #64748b; }
+  .cards-container { display: flex; justify-content: center; gap: 30px; padding: 20px 40px 60px; flex-wrap: wrap; max-width: 1000px; margin: 0 auto; flex: 1; }
+  .card { background: var(--card-bg); border-radius: 12px; padding: 40px 30px; width: 380px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; transition: transform 0.2s; }
+  .card:hover { transform: translateY(-5px); }
+  .icon { font-size: 3rem; margin-bottom: 15px; }
+  .card h3 { color: var(--primary-blue); font-size: 1.3rem; margin-bottom: 15px; }
+  .card p { font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 30px; min-height: 60px; }
+  .btn-enter { background-color: var(--primary-blue); color: white; border: none; padding: 12px 30px; font-size: 1rem; font-weight: 600; border-radius: 6px; cursor: pointer; width: 100%; transition: background-color 0.2s; text-decoration: none; display: inline-block; }
+  .btn-enter:hover { background-color: var(--btn-hover); }
+  @media (max-width: 768px) { .cards-container { flex-direction: column; align-items: center; padding: 20px; } .card { width: 100%; max-width: 400px; } .proponents { flex-direction: column; gap: 15px; } }
+</style>
+</head>
+<body>
+  <header>
+    <div class="logo-container"><div class="logo-placeholder">AES</div></div>
+    <h1>ANGELA ELEMENTARY SCHOOL</h1>
+    <p>Academic Recovery and Accessible Learning (ARAL) Reading Program</p>
+    <div class="proponents">
+      <div class="proponent"><div class="label">Lead Proponent</div><div class="name">RONELYN M. PRODIGO</div><div class="role">School Head</div></div>
+      <div class="proponent"><div class="label">Developer</div><div class="name">NOEL D. CAMBA</div><div class="role">Master Teacher 1</div></div>
+    </div>
+  </header>
+  <div class="main-title-section">
+    <h2>System Access Portal</h2>
+    <p>Alinsunod sa DepEd Order No. 18, s. 2025 at DepEd Memorandum No. 064, s. 2025 (ARAL Program)</p>
+  </div>
+  <div class="cards-container">
+    <div class="card">
+      <div class="icon">👩‍🏫</div><h3>Teacher</h3>
+      <p>Mag-assess ng reading skills ng mag-aaral at i-track ang kanilang progreso base sa IRIP Guide.</p>
+      <a href="teacher.html" class="btn-enter">Pumasok &rarr;</a>
+    </div>
+    <div class="card">
+      <div class="icon">👨‍💼</div><h3>Instructional Leader</h3>
+      <p>I-monitor ang performance ng lahat ng guro at mag-aaral gamit ang live dashboard.</p>
+      <a href="leader.html" class="btn-enter">Pumasok &rarr;</a>
+    </div>
+  </div>
+</body>
+</html>
