@@ -1,1 +1,10 @@
-{}
+{
+  "example_": {
+    "teacherName": "NOEL D. CAMBA",
+    "learnerName": "EXAMPLE",
+    "grade": "",
+    "statuses": {},
+    "notes": {},
+    "lastUpdated": "2026-10-22T10:31:47.123Z"
+  }
+}
